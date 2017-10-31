@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compiler</title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        #form{
+            margin: 10px;
+            align-self: center;
+        }
+        #name{
+            margin: 10px;
+            align-self: auto;
+        }
+        #code{
+            height: 400px;
+            width: 400px;
+            margin: 10px;
+            align-self: center;
+        }
+        #submit{
+            margin: 10px;
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <form action="/compiler" method="post" id="form">
+            <input type="text" name="name" placeholder="File Name" id="name"><br/>
+            <textarea name="code" placeholder="Your Code" id="code"></textarea><br/>
+            <button type="submit" id="submit">Compile</button>
+        </form>
+    </div>
+</body>
+</html>
