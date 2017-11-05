@@ -1,4 +1,5 @@
 import ply.lex as lex
+import codecs
 
 tokens = (
     'SHENASE',
@@ -80,7 +81,8 @@ t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
 # t_FIXED_CHARACTER = r'\\.{1}'
 
 t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
-t_ignore = r' \t\r\f\v'
+# t_ignore = r'\t\r\f\v'
+t_ignore = t_JAYEKHALI
 # # Ignored characters
 # t_ignore = " \t"
 
@@ -146,7 +148,7 @@ keywords = {
     'اصلی': 'MAIN'
 }
 
-variables = {}
+variables = []
 
 
 def t_SHENASE(t):
@@ -158,7 +160,7 @@ def t_SHENASE(t):
     r'|\u0649|\u06A9|\u064A|\u06CC|\u06BE|\u06D5|\u06C1|\_|\u0660|\u0661|\u0662|\u0663|\u0664|\u0665|\u0666|\u0667' \
     r'|\u0668|\u0669|\u06F0|\u06F1|\u06F2|\u06F3|\u06F4|\u06F5|\u06F6|\u06F7|\u06F8|\u06F9|0|1|2|3|4|5|6|7|8|9]+'
 
-    t.type = keywords.get(key=t.value, default='SHENASE')
+    t.type = keywords.get(t.value, 'SHENASE')
     if t.type == 'SHENASE':
         if t.value not in variables:
             variables.append(t.value)
@@ -187,7 +189,7 @@ def t_error(t):
 
 
 def compile(code: str):
-    lexical_analyser = lex.lex()
+    lexical_analyser = lex.lex(optimize=True)
     lexical_analyser.input(code)
     result = ''
     while True:
@@ -200,10 +202,14 @@ def compile(code: str):
                 if variables[i] == tokenize.value:
                     pars_index = i
                     break
-        print(tokenize.value + '\t' + tokenize.type + '\t' + str(pars_index))
-        result += tokenize.value + '\t' + tokenize.type + '\t' + str(pars_index) + '<br/>'
+        print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
+        # result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '<br/>'
+        result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '\n'
     return result
 
 
 if __name__ == '__main__':
-    pass
+    f = codecs.open('sample.txt', encoding='utf-8')
+    s = compile(f.read())
+    f.close()
+    print(s)
