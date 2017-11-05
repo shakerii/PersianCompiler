@@ -157,11 +157,11 @@ def t_SHENASE(t):
     r'|\u0634|\u0635|\u0636|\u0637|\u0638|\u0639|\u063A|\u0641|\u0642|\u0643|\u06AF|\u0644|\u0645|\u0646|\u0647|\u0648' \
     r'|\u0649|\u06A9|\u064A|\u06CC|\u06BE|\u06D5|\u06C1|\_|\u0660|\u0661|\u0662|\u0663|\u0664|\u0665|\u0666|\u0667' \
     r'|\u0668|\u0669|\u06F0|\u06F1|\u06F2|\u06F3|\u06F4|\u06F5|\u06F6|\u06F7|\u06F8|\u06F9|0|1|2|3|4|5|6|7|8|9]+'
+
     t.type = keywords.get(key=t.value, default='SHENASE')
     if t.type == 'SHENASE':
         if t.value not in variables:
             variables.append(t.value)
-
     return t
 
 
@@ -172,7 +172,7 @@ def t_ADAD(t):
 
 
 def t_COMMENT(t):
-    r'/\*([^*]|[\r\n] | (\*+([^*/]|[\r\n])))*\*+/'
+    r'/\*([^*]|[\n] | (\*+([^*/]|[\n])))*\*+/'
     pass
 
 
@@ -182,30 +182,28 @@ def t_newline(t):
 
 
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print('Illegal character "%s"' % t.value[0])
     t.lexer.skip(1)
 
 
-if __name__ == '__main__':
-    lexer = Lexer().build()
-    f = codecs.open('sample.fa', encoding='utf-8')
-    lexer.input(f.read())
-    f.close()
-    # Tokenize
+def compile(code: str):
+    lexical_analyser = lex.lex()
+    lexical_analyser.input(code)
+    result = ''
     while True:
-        tok = lexer.token()
-        if not tok:
-            break  # No more input
-        parsIndex = '-'
-        if tok.type == 'ID':
-            for i in range(len(Lexer.sTable)):
-                if Lexer.sTable[i] == tok.value:
-                    parsIndex = i
+        tokenize = lexical_analyser.token()
+        if not tokenize:
+            break
+        pars_index = ''
+        if tokenize.type == 'SHENASE':
+            for i in range(len(variables)):
+                if variables[i] == tokenize.value:
+                    pars_index = i
                     break
+        print(tokenize.value + '\t' + tokenize.type + '\t' + str(pars_index))
+        result += tokenize.value + '\t' + tokenize.type + '\t' + str(pars_index) + '<br/>'
+    return result
 
-print(tok.value + "\t" + tok.type + "\t" + str(parsIndex))
-
-lex.lex()
 
 if __name__ == '__main__':
-    print(result)
+    pass
