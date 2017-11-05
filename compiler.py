@@ -1,75 +1,65 @@
 import ply.lex as lex
 
-tokens2 = (
-    'FIXED_CHARACTER',
-    'SEMICOLON',
+tokens = (
+    'SHENASE',
+    'ADAD',
+    'HARFE_EZAFE',
+    'JAYEKHALI',
+    'NOGHTE_VIRGUL',
     'COMMA',
+    'COMMENTS',
+    'DOT',
+    'PLUS',
+    'MINUS',
+    'TIMES',
+    'DIVIDE',
+    'MOD',
+    'EQUALS',
+    'PLUS_EQ',
+    'MINUS_EQ',
+    'TIMES_EQ',
+    'DIVIDE_EQ',
+    'COLON',
+    'PLUS_PLUS',
+    'MINUS_MINUS',
+    'LT',
+    'GT',
+    'LE',
+    'GE',
+    'EQ',
+    'OPEN_PAREN',
+    'CLOSE_PAREN',
+    'OPEN_BRACE',
+    'CLOSE_BRACE',
+    'OPEN_BRACKET',
+    'CLOSE_BRACKET',
+    'QUESTION_MARK',
+
     'PROGRAM_KW',
-    'STRUCTURE_KW',
-    'OPENING_BRACE',
-    'CLOSING_BRACE_K',
-    'CONSTANT_KW',
-    'CHAR_KW',
-    'BOOLEAN_KW',
+    'STRUCT_KW',
+    'CONST_KW',
+    'INT_KW',
     'FLOAT_KW',
-    'INTEGER_KW',
-    'OPENING_BRACKET',
-    'CLOSING_BRACKET',
-    'OPENING_PARENTHESES',
-    'COSING_PARENTHESES',
+    'BOOL_KW',
+    'CHAR_KW',
     'IF_KW',
     'THEN_KW',
     'ELSE_KW',
     'SWITCH_KW',
     'END_KW',
     'CASE_KW',
-    'COLON',
     'DEFAULT_KW',
     'WHILE_KW',
     'RETURN_KW',
     'BREAK_KW',
-    'EXP',
-    'PLUS_EXP',
-    'MINUS_EXP',
-    'MUL_EXP',
-    'DIV_EXP',
-    'PLUSPLUS',
-    'MINUSMINUS',
-    'CIRCUIT_OR_KW',
-    'CIRCUIT_AND_KW',
     'OR_KW',
     'AND_KW',
+    'SHORT_CIRCUIT_OR_KW',
+    'SHORT_CIRCUIT_AND_KW',
     'NOT_KW',
-    'LT',
-    'LE',
-    'EQ',
-    'GE',
-    'G',
-    'PLUS',
-    'MINUS',
-    'MUL',
-    'DIV',
-    'MOD',
-    'QUESTION_MARK',
-    'DOT',
     'TRUE_KW',
     'FALSE_KW',
-    'MAIN',
-    'ID',
-    'COMMENT',
-    'NUMBER',
-)
-
-tokens = (
-    'NAME',
-    'NUMBER',
-    'PLUS',
-    'MINUS',
-    'TIMES',
-    'DIVIDE',
-    'EQUALS',
-    'LPAREN',
-    'RPAREN',
+    'MAIN'
 )
 
 # Tokens
@@ -108,8 +98,8 @@ t_MOD = r'٪'
 t_EQUALS = r'='
 t_PLUS_EQ = r'\+='
 t_MINUS_EQ = r'-='
-t_MUL_EQ = r'\*='
-t_DIV_EQ = r'\/='
+t_TIMES_EQ = r'\*='
+t_DIVIDE_EQ = r'\/='
 t_COLON = r':'
 t_PLUS_PLUS = r'\+\+'
 t_MINUS_MINUS = r'--'
@@ -128,29 +118,94 @@ t_CLOSE_BRACKET = r'\['
 
 # t_QUESTION_MARK = r'\?|\؟'
 
-result = ''
+keywords = {
+    'برنامه': 'PROGRAM_KW',
+    'ساختار': 'STRUCT_KW',
+    'ثابت': 'CONST_KW',
+    'صحیح': 'INT_KW',
+    'اعشاری': 'FLOAT_KW',
+    'منطقی': 'BOOL_KW',
+    'حرف': 'CHAR_KW',
+    'اگر': 'IF_KW',
+    'آنگاه': 'THEN_KW',
+    'وگرنه': 'ELSE_KW',
+    'کلید': 'SWITCH_KW',
+    'تمام': 'END_KW',
+    'حالت': 'CASE_KW',
+    'پیشفرض': 'DEFAULT_KW',
+    'وقتی': 'WHILE_KW',
+    'برگردان': 'RETURN_KW',
+    'بشکن': 'BREAK_KW',
+    'یا': 'OR_KW',
+    'و': 'AND_KW',
+    'یا وگرنه': 'SHORT_CIRCUIT_OR_KW',
+    'و همچنین': 'SHORT_CIRCUIT_AND_KW',
+    'خلاف': 'NOT_KW',
+    'درست': 'TRUE_KW',
+    'غلط': 'FALSE_KW',
+    'اصلی': 'MAIN'
+}
+
+variables = {}
 
 
-def t_NUMBER(t):
+def t_SHENASE(t):
+    r'[\u0622|\u0627|\u0628|\u067E|\u062A|\u062B|\u062C|\u0686|\u062D|\u062E|\u062F|\u0630|\u0631|\u0632|\u0698' \
+    r'|\u0633|\u0634|\u0635|\u0636|\u0637|\u0638|\u0639|\u063A|\u0641|\u0642|\u0643|\u06AF|\u0644|\u0645|\u0646|\u0647' \
+    r'|\u0648|\u0649|\u06A9|\u064A|\u06CC|\u06BE|\u06D5|\u06C1|\_]' \
+    r'[\u0622|\u0627|\u0628|\u067E|\u062A|\u062B|\u062C|\u0686|\u062D|\u062E|\u062F|\u0630|\u0631|\u0632|\u0698|\u0633' \
+    r'|\u0634|\u0635|\u0636|\u0637|\u0638|\u0639|\u063A|\u0641|\u0642|\u0643|\u06AF|\u0644|\u0645|\u0646|\u0647|\u0648' \
+    r'|\u0649|\u06A9|\u064A|\u06CC|\u06BE|\u06D5|\u06C1|\_|\u0660|\u0661|\u0662|\u0663|\u0664|\u0665|\u0666|\u0667' \
+    r'|\u0668|\u0669|\u06F0|\u06F1|\u06F2|\u06F3|\u06F4|\u06F5|\u06F6|\u06F7|\u06F8|\u06F9|0|1|2|3|4|5|6|7|8|9]+'
+    t.type = keywords.get(key=t.value, default='SHENASE')
+    if t.type == 'SHENASE':
+        if t.value not in variables:
+            variables.append(t.value)
+
+    return t
+
+
+def t_ADAD(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
 
+def t_COMMENT(t):
+    r'/\*([^*]|[\r\n] | (\*+([^*/]|[\r\n])))*\*+/'
+    pass
+
+
 def t_newline(t):
     r'\n+'
-    t.lexer.lineno += t.value.count("\n")
+    t.lexer.lineno += t.value.count('\n')
 
 
 def t_error(t):
-    global result
-    result += "Illegal character '%s'" % t.value[0] + '\n'
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
 
 
-lex.lex()
+if __name__ == '__main__':
+    lexer = Lexer().build()
+    f = codecs.open('sample.fa', encoding='utf-8')
+    lexer.input(f.read())
+    f.close()
+    # Tokenize
+    while True:
+        tok = lexer.token()
+        if not tok:
+            break  # No more input
+        parsIndex = '-'
+        if tok.type == 'ID':
+            for i in range(len(Lexer.sTable)):
+                if Lexer.sTable[i] == tok.value:
+                    parsIndex = i
+                    break
 
+print(tok.value + "\t" + tok.type + "\t" + str(parsIndex))
+
+lex.lex()
 
 if __name__ == '__main__':
     print(result)
