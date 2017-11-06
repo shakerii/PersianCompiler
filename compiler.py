@@ -3,13 +3,15 @@ import codecs
 
 tokens = (
     'SHENASE',
-    'ADAD',
+    # 'ADAD',
+    'INT',
+    'FLOAT',
     'HARFE_EZAFE',
     'JAYEKHALI',
     'NOGHTE_VIRGUL',
     'COMMA',
     'COMMENTS',
-    'DOT',
+    # 'DOT',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -67,6 +69,8 @@ tokens = (
 
 ragham = r'\u0660|\u0661|\u0662|\u0663|\u0664|\u0665|\u0666|\u0667|\u0668|\u0669|\u06F0|\u06F1|\u06F2|\u06F3|\u06F4' \
          r'|\u06F5|\u06F6|\u06F7|\u06F8|\u06F9|0|1|2|3|4|5|6|7|8|9'
+ragham1_9 = r'|\u0661|\u0662|\u0663|\u0664|\u0665|\u0666|\u0667|\u0668|\u0669|\u06F0|\u06F1|\u06F2|\u06F3|\u06F4' \
+            r'|\u06F5|\u06F6|\u06F7|\u06F8|\u06F9|1|2|3|4|5|6|7|8|9'
 
 harf = r'\u0622|\u0627|\u0628|\u067E|\u062A|\u062B|\u062C|\u0686|\u062D|\u062E|\u062F|\u0630|\u0631|\u0632|\u0698' \
        r'|\u0633|\u0634|\u0635|\u0636|\u0637|\u0638|\u0639|\u063A|\u0641|\u0642|\u0643|\u06AF|\u0644|\u0645|\u0646' \
@@ -75,7 +79,7 @@ harf = r'\u0622|\u0627|\u0628|\u067E|\u062A|\u062B|\u062C|\u0686|\u062D|\u062E|\
 harf_ragham = r'' + harf + r'|' + ragham
 
 t_SHENASE = r'' + harf + r'[' + harf_ragham + r']*'
-t_ADAD = r'[' + ragham + r']+'
+# t_ADAD = r'[' + ragham + r']+'
 
 t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
 # t_FIXED_CHARACTER = r'\\.{1}'
@@ -89,9 +93,9 @@ t_ignore = t_JAYEKHALI
 t_NOGHTE_VIRGUL = r';|\u061B'
 t_COMMA = r',|\u060C'
 
-t_COMMENTS = r''  # ?
+# t_COMMENTS = r''  # ?
 
-t_DOT = r'\.'
+# t_DOT = r'\.'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -111,14 +115,17 @@ t_LE = r'<='
 t_GE = r'>='
 t_EQ = r'=='
 
-t_OPEN_PAREN = r'\)'
-t_CLOSE_PAREN = r'\('
-t_OPEN_BRACE = r'\}'
-t_CLOSE_BRACE = r'\{'
-t_OPEN_BRACKET = r'\]'
-t_CLOSE_BRACKET = r'\['
+t_OPEN_PAREN = r'\('
+t_CLOSE_PAREN = r'\)'
+t_OPEN_BRACE = r'\{'
+t_CLOSE_BRACE = r'\}'
+t_OPEN_BRACKET = r'\['
+t_CLOSE_BRACKET = r'\]'
 
 # t_QUESTION_MARK = r'\?|\؟'
+
+# t_INT = r'[' + ragham1_9 + r']' + r'[' + ragham + r']*'
+t_FLOAT = r'(([' + ragham1_9 + r']' + r'[' + ragham + r']*)|(0|\u0660|\u06F0))' + r'\.((0|\u0660|\u06F0)|' + r'([' + ragham + r']*' + r'[' + ragham1_9 + r']))'
 
 keywords = {
     'برنامه': 'PROGRAM_KW',
@@ -167,14 +174,21 @@ def t_SHENASE(t):
     return t
 
 
-def t_ADAD(t):
+def t_FLOAT(t):
+    r'\d+.[\d]+'
+    t.value = float(t.value)
+    return t
+
+
+def t_INT(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
 
 def t_COMMENT(t):
-    r'/\*([^*]|[\n] | (\*+([^*/]|[\n])))*\*+/'
+    r'/\*([^*]|[\n]|(\*+([^*/]|[\n])))*\*+/|//.*'
+    print('Comment Found! :D')
     pass
 
 
@@ -202,7 +216,7 @@ def compile(code: str):
                 if variables[i] == tokenize.value:
                     pars_index = i
                     # break
-        # print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
+        print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
         # result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '<br/>'
         result += str(tokenize.value) + '\t\t' + str(tokenize.type) + '\t' + str(pars_index) + '\n'
     return result
