@@ -10,7 +10,7 @@ tokens = (
     'JAYEKHALI',
     'NOGHTE_VIRGUL',
     'COMMA',
-    'COMMENTS',
+    'COMMENT',
     # 'DOT',
     'PLUS',
     'MINUS',
@@ -93,7 +93,7 @@ t_ignore = t_JAYEKHALI
 t_NOGHTE_VIRGUL = r';|\u061B'
 t_COMMA = r',|\u060C'
 
-# t_COMMENTS = r''  # ?
+t_COMMENT = r'/\*([^*]|[\n]|(\*+([^*/]|[\n])))*\*+/|//.*'
 
 # t_DOT = r'\.'
 t_PLUS = r'\+'
@@ -189,7 +189,6 @@ def t_INT(t):
 def t_COMMENT(t):
     r'/\*([^*]|[\n]|(\*+([^*/]|[\n])))*\*+/|//.*'
     print('Comment Found! :D')
-    pass
 
 
 def t_newline(t):
