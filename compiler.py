@@ -201,10 +201,10 @@ def compile(code: str):
             for i in range(len(variables)):
                 if variables[i] == tokenize.value:
                     pars_index = i
-                    break
-        print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
+                    # break
+        # print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
         # result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '<br/>'
-        result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '\n'
+        result += str(tokenize.value) + '\t\t' + str(tokenize.type) + '\t' + str(pars_index) + '\n'
     return result
 
 
