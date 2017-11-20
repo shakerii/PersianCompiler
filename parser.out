@@ -1,0 +1,238 @@
+Created by PLY version 3.10 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    JAYEKHALI
+    HARFE_EZAFE
+    COMMENT
+    MAIN
+
+Grammar
+
+Rule 0     S' -> barnameh
+Rule 1     barnameh -> PROGRAM_KW SHENASE tarifha
+Rule 2     tarifha -> tarifha tarif
+Rule 3     tarifha -> tarif
+Rule 4     tarif -> tarifeSakhtar
+Rule 5     tarif -> tarifeMoteghayyer
+Rule 6     tarif -> tarifeTabe
+Rule 7     tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE
+Rule 8     tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule 9     tarifhayeMahalli -> epsilon
+Rule 10    tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule 11    jenseMahdud -> CONST_KW jens
+Rule 12    jenseMahdud -> jens
+Rule 13    jens -> INT_KW
+Rule 14    jens -> FLOAT_KW
+Rule 15    jens -> BOOL_KW
+Rule 16    jens -> CHAR_KW
+Rule 17    tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule 18    tarifeMoteghayyerha -> tarifeMeghdareAvvalie
+Rule 19    tarifeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie
+Rule 20    tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer
+Rule 21    tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule 22    tarifeShenaseyeMoteghayyer -> SHENASE
+Rule 23    tarifeShenaseyeMoteghayyer -> SHENASE OPEN_BRACKET INT CLOSE_BRACKET
+Rule 24    tarifeShenaseyeMoteghayyer -> SHENASE OPEN_BRACKET FLOAT CLOSE_BRACKET
+Rule 25    tarifeTabe -> jens SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle
+Rule 26    tarifeTabe -> SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle
+Rule 27    vorudi -> vorudiha
+Rule 28    vorudi -> epsilon
+Rule 29    vorudiha -> vorudiha NOGHTE_VIRGUL jensVorudiha
+Rule 30    vorudiha -> jensVorudiha
+Rule 31    jensVorudiha -> jens shenaseyeVorudiha
+Rule 32    shenaseyeVorudiha -> shenaseyeVorudiha COMMA shenaseyeVorudi
+Rule 33    shenaseyeVorudiha -> shenaseyeVorudi
+Rule 34    shenaseyeVorudi -> SHENASE
+Rule 35    shenaseyeVorudi -> SHENASE OPEN_BRACKET CLOSE_BRACKET
+Rule 36    jomle -> jomleyeMorakkab
+Rule 37    jomle -> jomleyeEbarat
+Rule 38    jomle -> jomleyeEntekhab
+Rule 39    jomle -> jomleyeTekrar
+Rule 40    jomle -> jomleyeBazgasht
+Rule 41    jomle -> jomleyeShekast
+Rule 42    jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule 43    jomleha -> jomleha jomle
+Rule 44    jomleha -> epsilon
+Rule 45    jomleyeEbarat -> ebarat NOGHTE_VIRGUL
+Rule 46    jomleyeEbarat -> NOGHTE_VIRGUL
+Rule 47    jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle
+Rule 48    jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle ELSE_KW jomle
+Rule 49    jomleyeEntekhab -> SWITCH_KW OPEN_PAREN ebarateSade CLOSE_PAREN onsoreHalat onsorePishfarz END_KW
+Rule 50    onsoreHalat -> CASE_KW INT COLON jomle NOGHTE_VIRGUL
+Rule 51    onsoreHalat -> CASE_KW FLOAT COLON jomle NOGHTE_VIRGUL
+Rule 52    onsoreHalat -> onsoreHalat CASE_KW INT COLON jomle NOGHTE_VIRGUL
+Rule 53    onsoreHalat -> onsoreHalat CASE_KW FLOAT COLON jomle NOGHTE_VIRGUL
+Rule 54    onsorePishfarz -> DEFAULT_KW COLON jomle NOGHTE_VIRGUL
+Rule 55    onsorePishfarz -> epsilon
+Rule 56    jomleyeTekrar -> WHILE_KW OPEN_PAREN ebarateSade CLOSE_PAREN jomle
+Rule 57    jomleyeBazgasht -> RETURN_KW NOGHTE_VIRGUL
+Rule 58    jomleyeBazgasht -> RETURN_KW ebarat NOGHTE_VIRGUL
+Rule 59    jomleyeShekast -> BREAK_KW NOGHTE_VIRGUL
+Rule 60    ebarat -> taghirpazir EQUALS ebarat
+Rule 61    ebarat -> taghirpazir PLUS_EQ ebarat
+Rule 62    ebarat -> taghirpazir MINUS_EQ ebarat
+Rule 63    ebarat -> taghirpazir TIMES_EQ ebarat
+Rule 64    ebarat -> taghirpazir DIVIDE_EQ ebarat
+Rule 65    ebarat -> taghirpazir PLUS_PLUS
+Rule 66    ebarat -> taghirpazir MINUS_MINUS
+Rule 67    ebarat -> ebarateSade
+Rule 68    ebarateSade -> ebarateSade OR_KW ebarateSade
+Rule 69    ebarateSade -> ebarateSade AND_KW ebarateSade
+Rule 70    ebarateSade -> ebarateSade SHORT_CIRCUIT_OR_KW ebarateSade
+Rule 71    ebarateSade -> ebarateSade SHORT_CIRCUIT_AND_KW ebarateSade
+Rule 72    ebarateSade -> NOT_KW ebarateSade
+Rule 73    ebarateSade -> ebarateRabetei
+Rule 74    ebarateRabetei -> ebarateRiaziManteghi
+Rule 75    ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule 76    amalgareRabetei -> LT
+Rule 77    amalgareRabetei -> GT
+Rule 78    amalgareRabetei -> GE
+Rule 79    amalgareRabetei -> LE
+Rule 80    amalgareRabetei -> EQ
+Rule 81    ebarateRiaziManteghi -> ebarateYegani
+Rule 82    ebarateRiaziManteghi -> ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi
+Rule 83    amalgareRiazi -> PLUS
+Rule 84    amalgareRiazi -> MINUS
+Rule 85    amalgareRiazi -> TIMES
+Rule 86    amalgareRiazi -> DIVIDE
+Rule 87    amalgareRiazi -> MOD
+Rule 88    ebarateYegani -> amalgareYegani ebarateYegani
+Rule 89    ebarateYegani -> amel
+Rule 90    amalgareYegani -> MINUS
+Rule 91    amalgareYegani -> TIMES
+Rule 92    amalgareYegani -> QUESTION_MARK
+Rule 93    amel -> taghirpazir
+Rule 94    amel -> taghirnapazir
+Rule 95    taghirpazir -> SHENASE
+Rule 96    taghirpazir -> taghirpazir OPEN_BRACKET ebarat CLOSE_BRACKET
+Rule 97    taghirpazir -> taghirpazir DOT SHENASE
+Rule 98    taghirnapazir -> OPEN_PAREN ebarat CLOSE_PAREN
+Rule 99    taghirnapazir -> sedaZadan
+Rule 100   taghirnapazir -> meghdareSabet
+Rule 101   sedaZadan -> SHENASE OPEN_PAREN bordareVorudi CLOSE_PAREN
+Rule 102   bordareVorudi -> bordareVorudiha
+Rule 103   bordareVorudi -> epsilon
+Rule 104   bordareVorudiha -> bordareVorudiha COMMA ebarat
+Rule 105   bordareVorudiha -> ebarat
+Rule 106   meghdareSabet -> INT
+Rule 107   meghdareSabet -> FLOAT
+Rule 108   meghdareSabet -> HARFE_SABET
+Rule 109   meghdareSabet -> TRUE_KW
+Rule 110   meghdareSabet -> FALSE_KW
+Rule 111   epsilon -> <empty>
+
+Terminals, with rules where they appear
+
+AND_KW               : 69
+BOOL_KW              : 15
+BREAK_KW             : 59
+CASE_KW              : 50 51 52 53
+CHAR_KW              : 16
+CLOSE_BRACE          : 7 42
+CLOSE_BRACKET        : 23 24 35 96
+CLOSE_PAREN          : 25 26 49 56 98 101
+COLON                : 50 51 52 53 54
+COMMA                : 19 32 104
+COMMENT              : 
+CONST_KW             : 11
+DEFAULT_KW           : 54
+DIVIDE               : 86
+DIVIDE_EQ            : 64
+DOT                  : 97
+ELSE_KW              : 48
+END_KW               : 49
+EQ                   : 80
+EQUALS               : 21 60
+FALSE_KW             : 110
+FLOAT                : 24 51 53 107
+FLOAT_KW             : 14
+GE                   : 78
+GT                   : 77
+HARFE_EZAFE          : 
+IF_KW                : 47 48
+INT                  : 23 50 52 106
+INT_KW               : 13
+JAYEKHALI            : 
+LE                   : 79
+LT                   : 76
+MAIN                 : 
+MINUS                : 84 90
+MINUS_EQ             : 62
+MINUS_MINUS          : 66
+MOD                  : 87
+NOGHTE_VIRGUL        : 10 17 29 45 46 50 51 52 53 54 57 58 59
+NOT_KW               : 72
+OPEN_BRACE           : 7 42
+OPEN_BRACKET         : 23 24 35 96
+OPEN_PAREN           : 25 26 49 56 98 101
+OR_KW                : 68
+PLUS                 : 83
+PLUS_EQ              : 61
+PLUS_PLUS            : 65
+PROGRAM_KW           : 1
+QUESTION_MARK        : 92
+RETURN_KW            : 57 58
+SHENASE              : 1 7 22 23 24 25 26 34 35 95 97 101
+SHORT_CIRCUIT_AND_KW : 71
+SHORT_CIRCUIT_OR_KW  : 70
+STRUCT_KW            : 7
+SWITCH_KW            : 49
+THEN_KW              : 47 48
+TIMES                : 85 91
+TIMES_EQ             : 63
+TRUE_KW              : 109
+WHILE_KW             : 56
+error                : 
+
+Nonterminals, with rules where they appear
+
+HARFE_SABET          : 108
+amalgareRabetei      : 75
+amalgareRiazi        : 82
+amalgareYegani       : 88
+amel                 : 89
+barnameh             : 0
+bordareVorudi        : 101
+bordareVorudiha      : 102 104
+ebarat               : 45 58 60 61 62 63 64 96 98 104 105
+ebarateRabetei       : 73
+ebarateRiaziManteghi : 74 75 75 82 82
+ebarateSade          : 21 47 48 49 56 67 68 68 69 69 70 70 71 71 72
+ebarateYegani        : 81 88
+epsilon              : 9 28 44 55 103
+jens                 : 11 12 17 25 31
+jensMahdud           : 10
+jensVorudiha         : 29 30
+jenseMahdud          : 
+jomle                : 25 26 43 47 48 48 50 51 52 53 54 56
+jomleha              : 42 43
+jomleyeBazgasht      : 40
+jomleyeEbarat        : 37
+jomleyeEntekhab      : 38
+jomleyeMorakkab      : 36
+jomleyeShekast       : 41
+jomleyeTekrar        : 39
+meghdareSabet        : 100
+onsoreHalat          : 49 52 53
+onsorePishfarz       : 49
+sedaZadan            : 99
+shenaseyeVorudi      : 32 33
+shenaseyeVorudiha    : 31 32
+taghirnapazir        : 94
+taghirpazir          : 60 61 62 63 64 65 66 93 96 97
+tarif                : 2 3
+tarifMoteghayyereMahdud : 8
+tarifeMeghdarAvvalie : 19
+tarifeMeghdareAvvalie : 18
+tarifeMoteghayyer    : 5
+tarifeMoteghayyerha  : 
+tarifeSakhtar        : 4
+tarifeShenaseyeMoteghayyer : 20 21
+tarifeTabe           : 6
+tarifha              : 1 2
+tarifhayeMahalli     : 7 8 42
+tarifhayeMoteghayyerha : 10 17 19
+vorudi               : 25 26
+vorudiha             : 27 29
+

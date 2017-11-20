@@ -11,7 +11,7 @@ tokens = (
     'NOGHTE_VIRGUL',
     'COMMA',
     'COMMENT',
-    # 'DOT',
+    'DOT',
     'PLUS',
     'MINUS',
     'TIMES',
@@ -86,7 +86,7 @@ t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
 
 t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
 # t_ignore = r'\t\r\f\v'
-t_ignore = t_JAYEKHALI
+t_ignore = r'\t\r\f\v'
 # # Ignored characters
 # t_ignore = " \t"
 
@@ -95,7 +95,7 @@ t_COMMA = r',|\u060C'
 
 t_COMMENT = r'/\*([^*]|[\n]|(\*+([^*/]|[\n])))*\*+/|//.*'
 
-# t_DOT = r'\.'
+t_DOT = r'\.'
 t_PLUS = r'\+'
 t_MINUS = r'-'
 t_TIMES = r'\*'
@@ -122,7 +122,7 @@ t_CLOSE_BRACE = r'\}'
 t_OPEN_BRACKET = r'\['
 t_CLOSE_BRACKET = r'\]'
 
-# t_QUESTION_MARK = r'\?|\؟'
+t_QUESTION_MARK = r'\?|\؟'
 
 # t_INT = r'[' + ragham1_9 + r']' + r'[' + ragham + r']*'
 t_FLOAT = r'(([' + ragham1_9 + r']' + r'[' + ragham + r']*)|(0|\u0660|\u06F0))' + r'\.((0|\u0660|\u06F0)|' + r'([' + ragham + r']*' + r'[' + ragham1_9 + r']))'
@@ -201,28 +201,10 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-def compile(code: str):
-    lexical_analyser = lex.lex(optimize=True)
-    lexical_analyser.input(code)
-    result = ''
-    while True:
-        tokenize = lexical_analyser.token()
-        if not tokenize:
-            break
-        pars_index = ''
-        if tokenize.type == 'SHENASE':
-            for i in range(len(variables)):
-                if variables[i] == tokenize.value:
-                    pars_index = i
-                    # break
-        print(str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index))
-        # result += str(tokenize.value) + '\t' + str(tokenize.type) + '\t' + str(pars_index) + '<br/>'
-        result += str(tokenize.value) + '\t\t' + str(tokenize.type) + '\t' + str(pars_index) + '\n'
-    return result
-
+lexical_analyser = lex.lex(optimize=True)
 
 if __name__ == '__main__':
     f = codecs.open('sample.txt', encoding='utf-8')
-    s = compile(f.read())
+    # s = compile()  # f.read()
     f.close()
-    print(s)
+    #   print(s)
