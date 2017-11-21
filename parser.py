@@ -6,7 +6,7 @@ import compiler
 
 precedence = (
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMUS', 'DIVIDE'),
+    ('left', 'TIMES', 'DIVIDE'),
 )
 
 
@@ -103,8 +103,8 @@ def p_tarifhayeMoteghayyerha_1(p):
 
 
 def p_tarifhayeMoteghayyerha_2(p):
-    """ tarifhayeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie """
-    print('Rule #10-2    : tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie')
+    """ tarifhayeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdareAvvalie """
+    print('Rule #10-2    : tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdareAvvalie')
 
 
 def p_tarifeMeghdareAvvalie_1(p):
