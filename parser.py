@@ -104,7 +104,7 @@ def p_tarifhayeMoteghayyerha_1(p):
 
 def p_tarifhayeMoteghayyerha_2(p):
     """ tarifhayeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdareAvvalie """
-    print('Rule #10-2    : tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdareAvvalie')
+    print('Rule #10-2    : tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie')
 
 
 def p_tarifeMeghdareAvvalie_1(p):
@@ -535,32 +535,32 @@ def p_bordareVorudiha_1(p):
 
 def p_bordareVorudiha_2(p):
     """bordareVorudiha : ebarat """
-    print('Rule #42-2   : bordareVorudiha -> ebarat')
+    print('Rule #42-2 : bordareVorudiha -> ebarat')
 
 
 def p_meghdareSabet_1(p):
     """ meghdareSabet : INT """
-    print('Rule #43-1   : meghdareSabet -> INT ')
+    print('Rule #43-1 : meghdareSabet -> INT ')
 
 
 def p_meghdareSabet_2(p):
     """ meghdareSabet :  FLOAT """
-    print('Rule #43-2   : meghdareSabet -> FLOAT ')
+    print('Rule #43-2 : meghdareSabet -> FLOAT ')
 
 
 def p_meghdareSabet_3(p):
     """ meghdareSabet :  HARFE_SABET """
-    print('Rule #43-3   : meghdareSabet -> HARFE_SABET ')
+    print('Rule #43-3 : meghdareSabet -> HARFE_SABET ')
 
 
 def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
-    print('Rule #43-4   : meghdareSabet -> TRUE_KW ')
+    print('Rule #43-4 : meghdareSabet -> TRUE_KW ')
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
-    print('Rule #43-5   : meghdareSabet -> FALSE_KW ')
+    print('Rule #43-5 : meghdareSabet -> FALSE_KW ')
 
 
 def p_epsilon(p):
@@ -578,7 +578,10 @@ def p_error(p):
 tokens = compiler.tokens
 
 parser = yacc.yacc()
-f = codecs.open('sample.txt', encoding='utf-8')
-result = parser.parse('sample.txt', lexer=compiler.lexical_analyser)
+f = codecs.open('./sample.txt', encoding='utf-8')
+r = ''
+for i in f:
+    r += str(i)
+result = parser.parse(r, lexer=compiler.lexical_analyser)
 f.close()
 print(result)

@@ -6,7 +6,7 @@ tokens = (
     # 'ADAD',
     'INT',
     'FLOAT',
-    'HARFE_EZAFE',
+    'HARFE_SABET',
     'JAYEKHALI',
     'NOGHTE_VIRGUL',
     'COMMA',
@@ -61,8 +61,8 @@ tokens = (
     'SHORT_CIRCUIT_AND_KW',
     'NOT_KW',
     'TRUE_KW',
-    'FALSE_KW',
-    'MAIN'
+    'FALSE_KW'
+    # 'MAIN'
 )
 
 # Tokens
