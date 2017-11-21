@@ -5,9 +5,8 @@ import compiler
 # Parsing Rules
 
 precedence = (
-    ('left', '+', '-'),
-    ('left', '*', '/'),
-    ('right', 'UMINUS'),
+    ('left', 'PLUS', 'MINUS'),
+    ('left', 'TIMUS', 'DIVIDE'),
 )
 
 
@@ -59,7 +58,7 @@ def p_tarifhayeMahalli_2(p):
 
 
 def p_tarifMoteghayyereMahdud(p):
-    """ tarifMoteghayyereMahdud : jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL """
+    """ tarifMoteghayyereMahdud : jenseMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL """
     print('Rule #6      : tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL')
 
 
@@ -99,22 +98,22 @@ def p_tarifeMoteghayyer(p):
 
 
 def p_tarifhayeMoteghayyerha_1(p):
-    """ tarifeMoteghayyerha : tarifeMeghdareAvvalie """
-    print('Rule #10-1    : tarifeMoteghayyerha -> tarifeAvvalie')
+    """ tarifhayeMoteghayyerha : tarifeMeghdareAvvalie """
+    print('Rule #10-1    : tarifhayeMoteghayyerha -> tarifeAvvalie')
 
 
 def p_tarifhayeMoteghayyerha_2(p):
-    """ tarifeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie """
-    print('Rule #10-2    : tarifeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie')
+    """ tarifhayeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie """
+    print('Rule #10-2    : tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie')
 
 
-def p_tarifeMeghdarAvvalie_1(p):
-    """ tarifeMeghdarAvvalie : tarifeShenaseyeMoteghayyer """
+def p_tarifeMeghdareAvvalie_1(p):
+    """ tarifeMeghdareAvvalie : tarifeShenaseyeMoteghayyer """
     print('Rule #11-1    : tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer')
 
 
-def p_tarifeMeghdarAvvalie_2(p):
-    """ tarifeMeghdarAvvalie : tarifeShenaseyeMoteghayyer EQUALS ebarateSade """
+def p_tarifeMeghdareAvvalie_2(p):
+    """ tarifeMeghdareAvvalie : tarifeShenaseyeMoteghayyer EQUALS ebarateSade """
     print('Rule #11-2    : tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade')
 
 
