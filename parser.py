@@ -563,6 +563,11 @@ def p_meghdareSabet_5(p):
     print('Rule #43-5 : meghdareSabet -> FALSE_KW ')
 
 
+# def p_epsilon_1(p):
+#     """ epsilon : JAYEKHALI """
+#     print('Rule #123123 : epsilon -> JAYEKHALI ')
+
+
 def p_epsilon(p):
     """epsilon : """
     pass
@@ -571,6 +576,7 @@ def p_epsilon(p):
 def p_error(p):
     if p:
         print('Syntax Error')
+        print(p)
     else:
         print('Syntax Error EOF')
 
@@ -584,4 +590,5 @@ for i in f:
     r += str(i)
 result = parser.parse(r, lexer=compiler.lexical_analyser)
 f.close()
+print('---')
 print(result)

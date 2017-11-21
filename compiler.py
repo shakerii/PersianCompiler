@@ -7,7 +7,7 @@ tokens = (
     'INT',
     'FLOAT',
     'HARFE_SABET',
-    'JAYEKHALI',
+    # 'JAYEKHALI',
     'NOGHTE_VIRGUL',
     'COMMA',
     'COMMENT',
@@ -84,7 +84,7 @@ t_SHENASE = r'' + harf + r'[' + harf_ragham + r']*'
 t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
 # t_FIXED_CHARACTER = r'\\.{1}'
 
-t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
+# t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
 # t_ignore = r'\t\r\f\v'
 t_ignore = r'\t\r\f\v'
 # # Ignored characters
