@@ -5,8 +5,14 @@ import compiler
 # Parsing Rules
 
 precedence = (
+    ('left', 'OR_KW', 'SHORT_CIRCUIT_OR_KW'),
+    ('left', 'AND_KW', 'SHORT_CIRCUIT_AND_KW'),
+    ('left', 'EQ'),
+    ('left', 'LT', 'GT', 'LE', 'GE'),
     ('left', 'PLUS', 'MINUS'),
+    ('left', 'MOD'),
     ('left', 'TIMES', 'DIVIDE'),
+    ('right', 'NOT_KW', 'MINUS_MINUS', 'PLUS_PLUS'),
 )
 
 
@@ -94,7 +100,7 @@ def p_jens_4(p):
 
 def p_tarifeMoteghayyer(p):
     """ tarifeMoteghayyer : jens tarifhayeMoteghayyerha NOGHTE_VIRGUL """
-    print('Rule #9   : tarifeMoteghayyer -> jens tarifhayeMoteghayyerha ;')
+    print('Rule #9   : tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
 
 
 def p_tarifhayeMoteghayyerha_1(p):
@@ -535,37 +541,37 @@ def p_bordareVorudiha_1(p):
 
 def p_bordareVorudiha_2(p):
     """bordareVorudiha : ebarat """
-    print('Rule #42-2 : bordareVorudiha -> ebarat')
+    print('Rule #42-2   : bordareVorudiha -> ebarat')
 
 
 def p_meghdareSabet_1(p):
     """ meghdareSabet : INT """
-    print('Rule #43-1 : meghdareSabet -> INT ')
+    print('Rule #43-1   : meghdareSabet -> INT ')
 
 
 def p_meghdareSabet_2(p):
     """ meghdareSabet :  FLOAT """
-    print('Rule #43-2 : meghdareSabet -> FLOAT ')
+    print('Rule #43-2   : meghdareSabet -> FLOAT ')
 
 
 def p_meghdareSabet_3(p):
     """ meghdareSabet :  HARFE_SABET """
-    print('Rule #43-3 : meghdareSabet -> HARFE_SABET ')
+    print('Rule #43-3   : meghdareSabet -> HARFE_SABET ')
 
 
 def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
-    print('Rule #43-4 : meghdareSabet -> TRUE_KW ')
+    print('Rule #43-4   : meghdareSabet -> TRUE_KW ')
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
-    print('Rule #43-5 : meghdareSabet -> FALSE_KW ')
+    print('Rule #43-5   : meghdareSabet -> FALSE_KW ')
 
 
-# def p_epsilon_1(p):
-#     """ epsilon : JAYEKHALI """
-#     print('Rule #123123 : epsilon -> JAYEKHALI ')
+def p_jayekhali(p):
+     """ epsilon : JAYEKHALI """
+     print('Rule #123123    : epsilon -> JAYEKHALI ')
 
 
 def p_epsilon(p):
