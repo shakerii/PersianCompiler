@@ -1,0 +1,299 @@
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #8-1 	: jens -> INT_KW
+Rule #7-2 	: jenseMahdud -> jens
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #11-2 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #6 	: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #5-1 	: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule #8-1 	: jens -> INT_KW
+Rule #7-2 	: jenseMahdud -> jens
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #11-1 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #6 	: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #5-1 	: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule #4 	: tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE
+Rule #3-1 	: tarif -> tarifeSakhtar
+Rule #2-2 	: tarifha -> tarif
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #8-2 	: jens -> FLOAT_KW
+Rule #7-1 	: jenseMahdud -> CONST_KW jens
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #43-2 	: meghdareSabet -> FLOAT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #11-2 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #6 	: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #5-1 	: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule #4 	: tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE
+Rule #3-1 	: tarif -> tarifeSakhtar
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #8-1 	: jens -> INT_KW
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #11-1 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #9 	: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #3-2 	: tarif -> tarifeMoteghayyer
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #8-3 	: jens -> BOOL_KW
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #43-5 	: meghdareSabet -> FALSE_KW
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #11-2 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #9 	: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #3-2 	: tarif -> tarifeMoteghayyer
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #8-4 	: jens -> CHAR_KW
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #11-1 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #9 	: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #3-2 	: tarif -> tarifeMoteghayyer
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #8-1 	: jens -> INT_KW
+Rule #8-1 	: jens -> INT_KW
+Rule #18-1 	: shenaseyeVorudi -> SHENASE
+Rule #17-2 	: shenaseyeVorudiha -> shenaseyeVorudi
+Rule #16 	: jensVorudiha -> jens shenaseyeVorudiha
+Rule #15-2 	: vorudiha -> jensVorudiha
+Rule #14-1 	: vorudi -> vorudiha
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #8-1 	: jens -> INT_KW
+Rule #7-2 	: jenseMahdud -> jens
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #11-2 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #6 	: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #5-1 	: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule #8-1 	: jens -> INT_KW
+Rule #7-2 	: jenseMahdud -> jens
+Rule #12-1 	: tarifeShenaseyeMoteghayyer -> SHENASE
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #11-2 	: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade
+Rule #10-1 	: tarifhayeMoteghayyerha -> tarifeAvvalie
+Rule #6 	: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL
+Rule #5-1 	: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud
+Rule #21-1 	: jomleha -> epsilon
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-5 	: amalgareRabetei -> EQ
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-5 	: amalgareRabetei -> EQ
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #31-1 	: ebarateSade -> ebarateSade OR_KW ebarateSade
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #21-1 	: jomleha -> epsilon
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #28-2 	: jomleyeBazgasht -> RETURN_KW ebarat NOGHTE_VIRGUL
+Rule #19-5 	: jomle -> jomleyeBazgasht
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #21-1 	: jomleha -> epsilon
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-4 	: amalgareRabetei -> LE
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #21-1 	: jomleha -> epsilon
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #30-4 	: ebarat -> taghirpazir TIMES_EQ ebarat
+Rule #22-1 	: jomleyeEbarat -> ebarat ;
+Rule #19-2 	: jomle -> jomleyeEbarat
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #30-6 	: ebarat -> taghirpazir PLUS_PLUS
+Rule #22-1 	: jomleyeEbarat -> ebarat ;
+Rule #19-2 	: jomle -> jomleyeEbarat
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #26 	: jomleyeTekrar -> WHILE_KW OPEN_PAREN  ebarateSade   CLOSE_PAREN  jomle
+Rule #19-4 	: jomle -> jomleyeTekrar
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #23-2 	: jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle ELSE_KW jomle
+Rule #19-3 	: jomle -> jomleyeEntekhab
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #13-1 	: tarifeTabe -> jens SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle
+Rule #3-3 	: tarif -> tarifeTabe
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #8-1 	: jens -> INT_KW
+Rule #14-2 	: vorudi -> epsilon
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #21-1 	: jomleha -> epsilon
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #39-3 	: taghirpazir -> taghirpazir DOT SHENASE
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #39-3 	: taghirpazir -> taghirpazir DOT SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #42-2 	: bordareVorudiha -> ebarat
+Rule #41-1 	: bordareVorudi -> bordareVorudiha
+Rule #40 	: sedaZadan -> SHENASE OPEN_PAREN bordareVorudi CLOSE_PAREN
+Rule #40-2 	: taghirnapazir -> sedaZadan
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #30-1 	: ebarat -> taghirpazir EQUALS ebarat
+Comment Found! :D
+Rule #22-1 	: jomleyeEbarat -> ebarat ;
+Rule #19-2 	: jomle -> jomleyeEbarat
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-5 	: amalgareRabetei -> EQ
+Rule #43-2 	: meghdareSabet -> FLOAT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #31-5 	: ebarateSade -> NOT_KW ebarateSade
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-2 	: amalgareRabetei -> GT
+Rule #43-2 	: meghdareSabet -> FLOAT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #31-1 	: ebarateSade -> ebarateSade OR_KW ebarateSade
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #33-2 	: amalgareRabetei -> GT
+Rule #43-1 	: meghdareSabet -> INT
+Rule #40-3 	: taghirnapazir -> meghdarSabet
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-2 	: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #31-1 	: ebarateSade -> ebarateSade OR_KW ebarateSade
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #40-1 	: taghirnapazir -> OPEN_PAREN ebarat CLOSE_PAREN
+Rule #38-2 	: amel -> taghirnapazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #5-2 	: tarifhayeMahalli -> epsilon
+Rule #21-1 	: jomleha -> epsilon
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #23-1 	: jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle
+Rule #19-3 	: jomle -> jomleyeEntekhab
+Rule #21-1 	: jomleha -> jomleha jomle
+Rule #39-1 	: taghirpazir -> SHENASE
+Rule #39-3 	: taghirpazir -> taghirpazir DOT SHENASE
+Rule #38-1 	: amel -> taghirpazir
+Rule #36-2 	: ebarateYegani -> amel
+Rule #34-1 	: ebarateRiaziManteghi -> ebarateYegani
+Rule #32-1 	: ebarateRabetei -> ebarateRiaziManteghi
+Rule #31-6 	: ebarateSade -> ebarateRabetei
+Rule #30-8 	: ebarat -> ebarateSade
+Rule #28-2 	: jomleyeBazgasht -> RETURN_KW ebarat NOGHTE_VIRGUL
+Rule #19-5 	: jomle -> jomleyeBazgasht
+Rule #21-1 	: jomleha -> jomleha jomle
+Comment Found! :D
+Comment Found! :D
+Rule #20 	: jomleyeMorakkab -> OPEN_BRACE tarifhayeMahalli jomleha CLOSE_BRACE
+Rule #19-1 	: jomle -> jomleyeMorakkab
+Rule #13-1 	: tarifeTabe -> jens SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle
+Rule #3-3 	: tarif -> tarifeTabe
+Rule #2-1 	: tarifha -> tarifha tarif
+Rule #1 	: barnameh -> PROGRAM_KW SHENASE tarifha
+
+Process finished with exit code 0
