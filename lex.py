@@ -151,7 +151,7 @@ keywords = {
     'خلاف': 'NOT_KW',
     'درست': 'TRUE_KW',
     'غلط': 'FALSE_KW',
-    'اصلی': 'MAIN'
+    'اصلی ': 'MAIN'
 }
 
 variables = []
@@ -196,7 +196,7 @@ def t_newline(t):
 
 
 def t_error(t):
-    # print('Illegal character "%s"' % t.value[0])
+    print('Illegal character "%s"' % t.value[0])
     t.lexer.skip(1)
 
 
