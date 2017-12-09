@@ -10,3 +10,4 @@ if __name__ == '__main__':
         r += str(i)
     yacc.parser.parse(r, lexer=lex.lexical_analyser)
     f.close()
+    print(str(yacc.qr))

@@ -1,5 +1,10 @@
 import ply.yacc as yacc
 import lex
+from var import Var
+from quad_ruple import QuadRuple
+from op import Operator
+
+qr = QuadRuple()
 
 precedence = (
     ('left', 'OR_KW', 'SHORT_CIRCUIT_OR_KW'),
@@ -75,27 +80,33 @@ def p_jenseMahdud_2(p):
 
 def p_jens_1(p):
     """ jens : INT_KW """
-    # print('Rule #8-1 \t: jens -> INT_KW')
+    print('Rule #8-1 \t: jens -> INT_KW')
+    p[0] = Var('int')
 
 
 def p_jens_2(p):
     """ jens : FLOAT_KW """
-    # print('Rule #8-2 \t: jens -> FLOAT_KW')
+    print('Rule #8-2 \t: jens -> FLOAT_KW')
+    p[0] = Var('float')
 
 
 def p_jens_3(p):
     """ jens : BOOL_KW """
-    # print('Rule #8-3 \t: jens -> BOOL_KW')
+    print('Rule #8-3 \t: jens -> BOOL_KW')
+    p[0] = Var('bool')
 
 
 def p_jens_4(p):
     """ jens : CHAR_KW """
-    # print('Rule #8-4 \t: jens -> CHAR_KW')
+    print('Rule #8-4 \t: jens -> CHAR_KW')
+    p[0] = Var('char')
 
 
 def p_tarifeMoteghayyer(p):
     """ tarifeMoteghayyer : jens tarifhayeMoteghayyerha NOGHTE_VIRGUL """
     # print('Rule #9 \t: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
+    for i in p:
+        print(i)
 
 
 def p_tarifhayeMoteghayyerha_1(p):
@@ -111,6 +122,7 @@ def p_tarifhayeMoteghayyerha_2(p):
 def p_tarifeMeghdareAvvalie_1(p):
     """ tarifeMeghdareAvvalie : tarifeShenaseyeMoteghayyer """
     # print('Rule #11-1 \t: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer')
+    # p[0] = p[1]
 
 
 def p_tarifeMeghdareAvvalie_2(p):
@@ -121,6 +133,7 @@ def p_tarifeMeghdareAvvalie_2(p):
 def p_tarifeShenaseyeMoteghayyer_1(p):
     """ tarifeShenaseyeMoteghayyer : SHENASE """
     # print('Rule #12-1 \t: tarifeShenaseyeMoteghayyer -> SHENASE')
+    p[0] = Var(place=p[1])
 
 
 def p_tarifeShenaseyeMoteghayyer_2(p):
@@ -309,145 +322,190 @@ def p_jomleyeShekast(p):
     # print('Rule #29 \t: jomleyeShekast -> BREAK_KW NOGHTE_VIRGUL')
 
 
-def p_ebarat_1(p:yacc.YaccProduction):
+def p_ebarat_1(p):
     """ ebarat : taghirpazir EQUALS ebarat """
     # print('Rule #30-1 \t: ebarat -> taghirpazir EQUALS ebarat')
-    print(p.q)
+    p[0] = p[1]
+    qr.add(p[1], '=', p[3])
 
 
 def p_ebarat_2(p):
     """ ebarat : taghirpazir PLUS_EQ ebarat """
     # print('Rule #30-2 \t: ebarat -> taghirpazir PLUS_EQ ebarat')
+    p[1] = Var(place=p[1].place + '+' + p[3].place)
+    qr.add(p[1], '+', p[1], p[3])
+    p[0] = p[1]
 
 
 def p_ebarat_3(p):
     """ ebarat : taghirpazir MINUS_EQ ebarat """
     # print('Rule #30-3 \t: ebarat -> taghirpazir MINUS_EQ ebarat')
+    p[1] = Var(place=p[1].place + '-' + p[3].place)
+    qr.add(p[1], '-', p[1], p[3])
+    p[0] = p[1]
 
 
 def p_ebarat_4(p):
     """ ebarat : taghirpazir TIMES_EQ ebarat """
     # print('Rule #30-4 \t: ebarat -> taghirpazir TIMES_EQ ebarat')
+    p[1] = Var(place=p[1].place + '*' + p[3].place)
+    qr.add(p[1], '*', p[1], p[3])
+    p[0] = p[1]
 
 
 def p_ebarat_5(p):
     """ ebarat : taghirpazir DIVIDE_EQ ebarat """
     # print('Rule #30-5 \t: ebarat -> taghirpazir DIVIDE_EQ ebarat')
+    p[1] = Var(place=p[1].place + '/' + p[3].place)
+    qr.add(p[1], '/', p[1], p[3])
+    p[0] = p[1]
 
 
 def p_ebarat_6(p):
     """ ebarat : taghirpazir PLUS_PLUS """
     # print('Rule #30-6 \t: ebarat -> taghirpazir PLUS_PLUS')
+    p[0] = Var(place=p[1].place + '+1')
+    qr.add(p[0], '+', p[1], 1)  #TODO var nist!
 
 
 def p_ebarat_7(p):
-    """ebarat : taghirpazir MINUS_MINUS """
+    """ ebarat : taghirpazir MINUS_MINUS """
     # print('Rule #30-7 \t: ebarat -> taghirpazir MINUS_MINUS')
+    p[0] = Var(place=p[1].place + '-1')
+    qr.add(p[0], '-', p[1], 1)
 
 
 def p_ebarat_8(p):
     """ ebarat : ebarateSade """
     # print('Rule #30-8 \t: ebarat -> ebarateSade')
+    p[0] = p[1]
 
 
 def p_ebarateSade_1(p):
     """ ebarateSade : ebarateSade OR_KW ebarateSade """
     # print('Rule #31-1 \t: ebarateSade -> ebarateSade OR_KW ebarateSade')
+    p[0] = Var(place=p[1].place + '||' + p[3].place)
+    qr.add(p[0], '||', p[1], p[3])
 
 
 def p_ebarateSade_2(p):
     """ ebarateSade : ebarateSade AND_KW ebarateSade """
     # print('Rule #31-2 \t: ebarateSade -> ebarateSade AND_KW ebarateSade')
+    p[0] = Var(place=p[1].place + '&&' + p[3].place)
+    qr.add(p[0], '&&', p[1], p[3])
 
 
 def p_ebarateSade_3(p):
     """ ebarateSade : ebarateSade SHORT_CIRCUIT_OR_KW ebarateSade """
     # print('Rule #31-3 \t: ebarateSade -> ebarateSade SHORT_CIRCUIT_OR_KW ebarateSade')
+    p[0] = Var(place=p[1].place + '|' + p[3].place)
+    qr.add(p[0], '|', p[1], p[3])
 
 
 def p_ebarateSade_4(p):
     """ ebarateSade : ebarateSade SHORT_CIRCUIT_AND_KW ebarateSade """
     # print('Rule #31-4 \t: ebarateSade -> ebarateSade SHORT_CIRCUIT_AND_KW ebarateSade')
+    p[0] = Var(place=p[1].place + '&' + p[3].place)
+    qr.add(p[0], '&', p[1], p[3])
 
 
 def p_ebarateSade_5(p):
     """ ebarateSade : NOT_KW ebarateSade """
     # print('Rule #31-5 \t: ebarateSade -> NOT_KW ebarateSade')
+    p[0] = Var(place='!' + p[2].place)
+    qr.add(p[0], '!', p[1])
 
 
 def p_ebarateSade_6(p):
     """ ebarateSade : ebarateRabetei """
     # print('Rule #31-6 \t: ebarateSade -> ebarateRabetei')
+    p[0] = p[1]
 
 
 def p_ebarateRabetei_1(p):
     """ ebarateRabetei : ebarateRiaziManteghi """
     # print('Rule #32-1 \t: ebarateRabetei -> ebarateRiaziManteghi')
+    p[0] = p[1]
 
 
 def p_ebarateRabetei_2(p):
     """ ebarateRabetei : ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi """
     # print('Rule #32-2 \t: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi')
+    p[0] = Var(place=p[1].place + p[2].op + p[3].place)
+    qr.add(p[0], p[2].op, p[1], p[3])
 
 
 def p_amalgareRabetei_1(p):
     """ amalgareRabetei : LT  """
     # print('Rule #33-1 \t: amalgareRabetei -> LT')
+    p[0] = Operator('<')
 
 
 def p_amalgareRabetei_2(p):
     """ amalgareRabetei : GT  """
     # print('Rule #33-2 \t: amalgareRabetei -> GT')
+    p[0] = Operator('>')
 
 
 def p_amalgareRabetei_3(p):
     """ amalgareRabetei : GE """
     # print('Rule #33-3 \t: amalgareRabetei -> GE')
+    p[0] = Operator('>=')
 
 
 def p_amalgareRabetei_4(p):
     """ amalgareRabetei : LE """
     # print('Rule #33-4 \t: amalgareRabetei -> LE')
+    p[0] = Operator('<=')
 
 
 def p_amalgareRabetei_5(p):
     """ amalgareRabetei : EQ """
     # print('Rule #33-5 \t: amalgareRabetei -> EQ')
+    p[0] = Operator('==')
 
 
 def p_ebarateRiaziManteghi_1(p):
     """ ebarateRiaziManteghi : ebarateYegani """
     # print('Rule #34-1 \t: ebarateRiaziManteghi -> ebarateYegani')
+    p[0] = p[1]
 
 
 def p_ebarateRiaziManteghi_2(p):
     """ebarateRiaziManteghi : ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi """
     # print('Rule #34-2 \t: ebarateRiaziManteghi -> ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi')
+    p[0] = Var(place=p[1].place + p[2].op + p[3].place)
+    qr.add(p[0], p[2].op, p[1], p[3])
 
 
 def p_amalgareRiazi_1(p):
     """ amalgareRiazi : PLUS """
     # print('Rule #35-1 \t: amalgareRiazi -> PLUS')
+    p[0] = Operator('+')
 
 
 def p_amalgareRiazi_2(p):
     """ amalgareRiazi : MINUS """
     # print('Rule #35-2 \t: amalgareRiazi -> MINUS')
+    p[0] = Operator('-')
 
 
 def p_amalgareRiazi_3(p):
     """ amalgareRiazi : TIMES """
     # print('Rule #35-3 \t: amalgareRiazi -> TIMES')
+    p[0] = Operator('*')
 
 
 def p_amalgareRiazi_4(p):
     """ amalgareRiazi : DIVIDE """
     # print('Rule #35-4 \t: amalgareRiazi -> DIVIDE')
+    p[0] = Operator('/')
 
 
 def p_amalgareRiazi_5(p):
     """ amalgareRiazi : MOD """
     # print('Rule #35-5 \t: amalgareRiazi -> MOD')
+    p[0] = Operator('%')
 
 
 def p_ebarateYegani_1(p):
@@ -458,6 +516,7 @@ def p_ebarateYegani_1(p):
 def p_ebarateYegani_2(p):
     """ ebarateYegani : amel """
     # print('Rule #36-2 \t: ebarateYegani -> amel')
+    p[0] = p[1]
 
 
 def p_amalgareYegani_1(p):
@@ -478,16 +537,19 @@ def p_amalgareYegani_3(p):
 def p_amel_1(p):
     """ amel : taghirpazir """
     # print('Rule #38-1 \t: amel -> taghirpazir')
+    p[0] = p[1]
 
 
 def p_amel_2(p):
     """ amel :  taghirnapazir """
     # print('Rule #38-2 \t: amel -> taghirnapazir')
+    p[0] = p[1]
 
 
 def p_taghirpazir_1(p):
     """ taghirpazir : SHENASE """
     # print('Rule #39-1 \t: taghirpazir -> SHENASE')
+    p[0] = Var(place=p[1])
 
 
 def p_taghirpazir_2(p):
@@ -513,6 +575,7 @@ def p_taghirnapazir_2(p):
 def p_taghirnapazir_3(p):
     """taghirnapazir : meghdareSabet """
     # print('Rule #40-3 \t: taghirnapazir -> meghdarSabet')
+    p[0] = p[1]
 
 
 def p_sedaZadan(p):
@@ -543,26 +606,32 @@ def p_bordareVorudiha_2(p):
 def p_meghdareSabet_1(p):
     """ meghdareSabet : INT """
     # print('Rule #43-1 \t: meghdareSabet -> INT ')
+    p[0] = Var(type='int', value=p[1])
+    print(p[0].value)
 
 
 def p_meghdareSabet_2(p):
     """ meghdareSabet :  FLOAT """
     # print('Rule #43-2 \t: meghdareSabet -> FLOAT ')
+    p[0] = Var(type='float', value=p[1])
 
 
 def p_meghdareSabet_3(p):
     """ meghdareSabet :  HARFE_SABET """
     # print('Rule #43-3 \t: meghdareSabet -> HARFE_SABET ')
+    p[0] = Var(type='char', value=p[1])
 
 
 def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
     # print('Rule #43-4 \t: meghdareSabet -> TRUE_KW ')
+    p[0] = Var(type='bool', value=p[1])
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
     # print('Rule #43-5 \t: meghdareSabet -> FALSE_KW ')
+    p[0] = Var(type='bool', value=p[1])
 
 
 def p_epsilon(p):

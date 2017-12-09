@@ -83,7 +83,7 @@ t_SHENASE = r'' + harf + r'[' + harf_ragham + r']*'
 t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
 # t_FIXED_CHARACTER = r'\\.{1}'
 
-# t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
+t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
 # t_ignore = r'\t\r\f\v'
 t_ignore = r' '
 # # Ignored characters
@@ -154,7 +154,7 @@ keywords = {
     'اصلی ': 'MAIN'
 }
 
-variables = []
+variables = {}
 
 
 def t_SHENASE(t):
@@ -169,7 +169,7 @@ def t_SHENASE(t):
     t.type = keywords.get(t.value, 'SHENASE')
     if t.type == 'SHENASE':
         if t.value not in variables:
-            variables.append(t.value)
+            variables[t.value] = {'type': None}
     return t
 
 
@@ -187,7 +187,7 @@ def t_INT(t):
 
 def t_COMMENT(t):
     r'/\*([^*]|[\n]|(\*+([^*/]|[\n])))*\*+/|//.*'
-    print('Comment Found! :D')
+    # print('Comment Found! :D')
 
 
 def t_newline(t):
