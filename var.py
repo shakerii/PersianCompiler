@@ -13,8 +13,3 @@ class Var:
         self.place = place
         self.value = value
         self.unique = unique_generator()
-
-    def __eq__(self, other):
-        self.type = other.type
-        self.place = other.place
-        self.value = other.value

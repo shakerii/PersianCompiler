@@ -13,10 +13,6 @@ class QuadRuple:
     def __str__(self):
         s = ''
         for t in self.table:
-            # if t['arg2'] is None:
-            #     s += t['res'].place + ', ' + t['op'] + ', ' + t['arg1'].place + '\n'
-            # else:
-            #     s += t['res'].place + ', ' + t['arg1'].place + ', ' + t['op'] + ', ' + t['arg2'].place + '\n'
             if t['arg2'] is None:
                 if t['op'] == '=':
                     s += t['res'].unique + ' = ' + t['arg1'].unique + '\n'

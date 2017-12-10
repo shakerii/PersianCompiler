@@ -5,6 +5,7 @@ from quad_ruple import QuadRuple
 from op import Operator
 
 qr = QuadRuple()
+var = lex.variables
 
 precedence = (
     ('left', 'OR_KW', 'SHORT_CIRCUIT_OR_KW'),
@@ -14,6 +15,7 @@ precedence = (
     ('left', 'PLUS', 'MINUS'),
     ('left', 'MOD'),
     ('left', 'TIMES', 'DIVIDE'),
+    # ('left', 'INT_KW', 'FLOAT_KW', 'CHAR_KW'),
     ('right', 'NOT_KW', 'MINUS_MINUS', 'PLUS_PLUS'),
 )
 
@@ -33,14 +35,14 @@ def p_tarifha_2(p):
     # print('Rule #2-2 \t: tarifha -> tarif')
 
 
-def p_tarif_1(p):
-    """ tarif : tarifeSakhtar """
-    # print('Rule #3-1 \t: tarif -> tarifeSakhtar')
+# def p_tarif_1(p):
+#     """ tarif : tarifeSakhtar """
+#     print('Rule #3-1 \t: tarif -> tarifeSakhtar')
 
 
 def p_tarif_2(p):
     """ tarif : tarifeMoteghayyer """
-    # print('Rule #3-2 \t: tarif -> tarifeMoteghayyer')
+    print('Rule #3-2 \t: tarif -> tarifeMoteghayyer')
 
 
 def p_tarif_3(p):
@@ -48,86 +50,102 @@ def p_tarif_3(p):
     # print('Rule #3-3 \t: tarif -> tarifeTabe')
 
 
-def p_tarifeSakhtar(p):
-    """ tarifeSakhtar : STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE """
-    # print('Rule #4 \t: tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE ')
+# def p_tarifeSakhtar(p):
+#     """ tarifeSakhtar : STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE """
+#     print('Rule #4 \t: tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE ')
 
 
-def p_tarifhayeMahalli_1(p):
-    """ tarifhayeMahalli : tarifhayeMahalli tarifMoteghayyereMahdud """
-    # print('Rule #5-1 \t: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud')
+# def p_tarifhayeMahalli_1(p):
+#     """ tarifhayeMahalli : tarifhayeMahalli tarifMoteghayyereMahdud """
+#     print('Rule #5-1 \t: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud')
 
 
 def p_tarifhayeMahalli_2(p):
     """ tarifhayeMahalli : epsilon """
-    # print('Rule #5-2 \t: tarifhayeMahalli -> epsilon')
+    print('Rule #5-2 \t: tarifhayeMahalli -> epsilon')
 
 
-def p_tarifMoteghayyereMahdud(p):
-    """ tarifMoteghayyereMahdud : jenseMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL """
-    # print('Rule #6 \t: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL')
+# def p_tarifMoteghayyereMahdud(p):
+#     """ tarifMoteghayyereMahdud : jenseMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL """
+#     print('Rule #6 \t: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL')
+#     for v in p[2]:
+#         if v.type is None or v.type == p[1].type:
+#             v.type = p[1].type
+#         else:
+#             raise Exception('type error near ' + v.place + ' = ' + str(v.value))
 
 
-def p_jenseMahdud_1(p):
-    """ jenseMahdud : CONST_KW jens """
-    # print('Rule #7-1 \t: jenseMahdud -> CONST_KW jens')
+# def p_jenseMahdud_1(p):
+#     """ jenseMahdud : CONST_KW jens """
+#     # print('Rule #7-1 \t: jenseMahdud -> CONST_KW jens')
+#     p[0] = p[1]
+#     p[0].type = 'c' + p[1].type
 
 
-def p_jenseMahdud_2(p):
-    """ jenseMahdud : jens """
-    # print('Rule #7-2 \t: jenseMahdud -> jens')
+# def p_jenseMahdud_2(p):
+#     """ jenseMahdud : jens """
+#     # print('Rule #7-2 \t: jenseMahdud -> jens')
+#     p[0] = p[1]
 
 
 def p_jens_1(p):
     """ jens : INT_KW """
-    print('Rule #8-1 \t: jens -> INT_KW')
-    p[0] = Var('int')
+    # print('Rule #8-1 \t: jens -> INT_KW')
+    p[0] = Var(type='int')
 
 
 def p_jens_2(p):
     """ jens : FLOAT_KW """
-    print('Rule #8-2 \t: jens -> FLOAT_KW')
-    p[0] = Var('float')
+    # print('Rule #8-2 \t: jens -> FLOAT_KW')
+    p[0] = Var(type='float')
 
 
 def p_jens_3(p):
     """ jens : BOOL_KW """
-    print('Rule #8-3 \t: jens -> BOOL_KW')
-    p[0] = Var('bool')
+    # print('Rule #8-3 \t: jens -> BOOL_KW')
+    p[0] = Var(type='bool')
 
 
 def p_jens_4(p):
     """ jens : CHAR_KW """
-    print('Rule #8-4 \t: jens -> CHAR_KW')
-    p[0] = Var('char')
+    # print('Rule #8-4 \t: jens -> CHAR_KW')
+    p[0] = Var(type='char')
 
 
 def p_tarifeMoteghayyer(p):
     """ tarifeMoteghayyer : jens tarifhayeMoteghayyerha NOGHTE_VIRGUL """
-    # print('Rule #9 \t: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
-    for i in p:
-        print(i)
+    print('Rule #9 \t: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
+    for v in p[2]:
+        if v.type is None or v.type == p[1].type:
+            v.type = p[1].type
+        else:
+            raise Exception('type error near ' + v.place + ' = ' + str(v.value))
 
 
 def p_tarifhayeMoteghayyerha_1(p):
     """ tarifhayeMoteghayyerha : tarifeMeghdareAvvalie """
-    # print('Rule #10-1 \t: tarifhayeMoteghayyerha -> tarifeAvvalie')
+    # print('Rule #10-1 \t: tarifhayeMoteghayyerha -> tarifeMeghdareAvvalie')
+    p[0] = p[1]
 
 
 def p_tarifhayeMoteghayyerha_2(p):
     """ tarifhayeMoteghayyerha : tarifhayeMoteghayyerha COMMA tarifeMeghdareAvvalie """
     # print('Rule #10-2 \t: tarifhayeMoteghayyerha -> tarifhayeMoteghayyerha COMMA tarifeMeghdarAvvalie')
+    p[1].append(p[3])
+    p[0] = p[1]
 
 
 def p_tarifeMeghdareAvvalie_1(p):
     """ tarifeMeghdareAvvalie : tarifeShenaseyeMoteghayyer """
     # print('Rule #11-1 \t: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer')
-    # p[0] = p[1]
+    p[0] = [p[1]]
 
 
 def p_tarifeMeghdareAvvalie_2(p):
     """ tarifeMeghdareAvvalie : tarifeShenaseyeMoteghayyer EQUALS ebarateSade """
     # print('Rule #11-2 \t: tarifeMeghdarAvvalie -> tarifeShenaseyeMoteghayyer EQUALS ebarateSade')
+    p[1].value, p[1].type = p[3].value, p[3].type
+    p[0] = p[1]
 
 
 def p_tarifeShenaseyeMoteghayyer_1(p):
@@ -147,12 +165,12 @@ def p_tarifeShenaseyeMoteghayyer_3(p):
 
 
 def p_tarifeTabe_1(p):
-    """ tarifeTabe : jens SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle """
-    # print('Rule #13-1 \t: tarifeTabe -> jens SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle')
+    """ tarifeTabe : jens SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle """
+    # print('Rule #13-1 \t: tarifeTabe -> jens SHENASE OPEN_PAREN  vorudi   CLOSE_PAREN  jomle')
 
 
 def p_tarifeTabe_2(p):
-    """ tarifeTabe : SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle """
+    """ tarifeTabe : SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle """
     # print('Rule #13-2 \t: tarifeTabe -> SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle')
 
 
@@ -324,7 +342,7 @@ def p_jomleyeShekast(p):
 
 def p_ebarat_1(p):
     """ ebarat : taghirpazir EQUALS ebarat """
-    # print('Rule #30-1 \t: ebarat -> taghirpazir EQUALS ebarat')
+    print('Rule #30-1 \t: ebarat -> taghirpazir EQUALS ebarat')
     p[0] = p[1]
     qr.add(p[1], '=', p[3])
 
@@ -365,7 +383,7 @@ def p_ebarat_6(p):
     """ ebarat : taghirpazir PLUS_PLUS """
     # print('Rule #30-6 \t: ebarat -> taghirpazir PLUS_PLUS')
     p[0] = Var(place=p[1].place + '+1')
-    qr.add(p[0], '+', p[1], 1)  #TODO var nist!
+    qr.add(p[0], '+', p[1], 1)  # TODO var nist!
 
 
 def p_ebarat_7(p):
@@ -473,8 +491,10 @@ def p_ebarateRiaziManteghi_1(p):
 
 def p_ebarateRiaziManteghi_2(p):
     """ebarateRiaziManteghi : ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi """
-    # print('Rule #34-2 \t: ebarateRiaziManteghi -> ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi')
+    print('Rule #34-2 \t: ebarateRiaziManteghi -> ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi')
     p[0] = Var(place=p[1].place + p[2].op + p[3].place)
+    print(p[1].unique, p[1].type)
+    print(p[3].unique, p[3].type)
     qr.add(p[0], p[2].op, p[1], p[3])
 
 
@@ -595,7 +615,7 @@ def p_bordareVorudi_2(p):
 
 def p_bordareVorudiha_1(p):
     """ bordareVorudiha : bordareVorudiha COMMA ebarat """
-    # print('Rule #42-1 \t: bordareVorudiha -> bordareVorudiha COMMA ebarat')
+    # print('Rule #42-1 \t:s bordareVorudiha -> bordareVorudiha COMMA ebarat')
 
 
 def p_bordareVorudiha_2(p):
@@ -606,37 +626,35 @@ def p_bordareVorudiha_2(p):
 def p_meghdareSabet_1(p):
     """ meghdareSabet : INT """
     # print('Rule #43-1 \t: meghdareSabet -> INT ')
-    p[0] = Var(type='int', value=p[1])
-    print(p[0].value)
+    p[0] = Var(place=str(p[1]), type='int', value=p[1])
 
 
 def p_meghdareSabet_2(p):
     """ meghdareSabet :  FLOAT """
     # print('Rule #43-2 \t: meghdareSabet -> FLOAT ')
-    p[0] = Var(type='float', value=p[1])
+    p[0] = Var(place=str(p[1]), type='float', value=p[1])
 
 
 def p_meghdareSabet_3(p):
     """ meghdareSabet :  HARFE_SABET """
     # print('Rule #43-3 \t: meghdareSabet -> HARFE_SABET ')
-    p[0] = Var(type='char', value=p[1])
+    p[0] = Var(place=str(p[1]), type='char', value=p[1])
 
 
 def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
     # print('Rule #43-4 \t: meghdareSabet -> TRUE_KW ')
-    p[0] = Var(type='bool', value=p[1])
+    p[0] = Var(place=str(p[1]), type='bool', value=p[1])
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
     # print('Rule #43-5 \t: meghdareSabet -> FALSE_KW ')
-    p[0] = Var(type='bool', value=p[1])
+    p[0] = Var(place=str(p[1]), type='bool', value=p[1])
 
 
 def p_epsilon(p):
     """ epsilon : """
-    pass
 
 
 def p_error(p):

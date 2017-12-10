@@ -60,8 +60,8 @@ tokens = (
     'SHORT_CIRCUIT_AND_KW',
     'NOT_KW',
     'TRUE_KW',
-    'FALSE_KW',
-    'MAIN'
+    'FALSE_KW'
+    # 'MAIN_KW'
 )
 
 # Tokens
@@ -150,8 +150,8 @@ keywords = {
     'و همچنین': 'SHORT_CIRCUIT_AND_KW',
     'خلاف': 'NOT_KW',
     'درست': 'TRUE_KW',
-    'غلط': 'FALSE_KW',
-    'اصلی ': 'MAIN'
+    'غلط': 'FALSE_KW'
+    # 'اصلی': 'MAIN_KW'
 }
 
 variables = {}
