@@ -13,3 +13,6 @@ class Var:
         self.place = place
         self.value = value
         self.unique = unique_generator()
+        self.trueList = []
+    	self.falseList = []
+    	self.nextList = []

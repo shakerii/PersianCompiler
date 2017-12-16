@@ -1,11 +1,29 @@
 import ply.yacc as yacc
 import lex
+
 from var import Var
 from quad_ruple import QuadRuple
 from op import Operator
 
 qr = QuadRuple()
+symbolTable = {}
+allTemps = {}
+tempCount = 0
 var = lex.variables
+
+def getTemp(type):  # Gnerating new Temp
+	tempCount += 1
+	newTemp = 'T' + str(tempCount)
+	allTemps[newTemp] = type
+	return newTemp
+	
+def lookup(ID):  #Searching in SymbolTable
+	try: 
+		return symbolTable[ID]
+	except:
+		print ('Undefine Variable' + ID );
+		exit(1)
+	
 
 precedence = (
     ('left', 'OR_KW', 'SHORT_CIRCUIT_OR_KW'),
@@ -542,6 +560,7 @@ def p_ebarateYegani_2(p):
 def p_amalgareYegani_1(p):
     """ amalgareYegani : MINUS """
     # print('Rule #37-1 \t: amalgareYegani -> MINUS')
+    p[0] = Var(place = '-')
 
 
 def p_amalgareYegani_2(p):
@@ -552,6 +571,7 @@ def p_amalgareYegani_2(p):
 def p_amalgareYegani_3(p):
     """ amalgareYegani : QUESTION_MARK """
     # print('Rule #37-3 \t: amalgareYegani -> QUESTION_MARK')
+    p[0] = Var(place = '?') 
 
 
 def p_amel_1(p):
@@ -569,7 +589,7 @@ def p_amel_2(p):
 def p_taghirpazir_1(p):
     """ taghirpazir : SHENASE """
     # print('Rule #39-1 \t: taghirpazir -> SHENASE')
-    p[0] = Var(place=p[1])
+    p[0] = Var(place=str(p[1]) ,type = lookup(p[1]) ,value = p[1])
 
 
 def p_taghirpazir_2(p):
@@ -585,6 +605,7 @@ def p_taghirpazir_3(p):
 def p_taghirnapazir_1(p):
     """ taghirnapazir : OPEN_PAREN ebarat CLOSE_PAREN """
     # print('Rule #40-1 \t: taghirnapazir -> OPEN_PAREN ebarat CLOSE_PAREN')
+    p[0] = p[2]
 
 
 def p_taghirnapazir_2(p):
@@ -645,12 +666,14 @@ def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
     # print('Rule #43-4 \t: meghdareSabet -> TRUE_KW ')
     p[0] = Var(place=str(p[1]), type='bool', value=p[1])
+    p[0].place = '1'
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
     # print('Rule #43-5 \t: meghdareSabet -> FALSE_KW ')
     p[0] = Var(place=str(p[1]), type='bool', value=p[1])
+    p[0].place = '0'
 
 
 def p_epsilon(p):
