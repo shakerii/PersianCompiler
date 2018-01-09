@@ -1,12 +1,17 @@
 import ply.yacc as yacc
+
 import lex
-from var import Var
-from quad_ruple import QuadRuple
-from op import Operator
+from env.var import Var, i
+from env.quad_ruple import QuadRuple
+from env.op import Operator
 
 qr = QuadRuple()
 var = lex.variables
-code = ''
+tokens = lex.tokens
+result = open('res.c', 'w')
+zero = Var(place=0, type='int', value=0)
+zero.set_unique()
+
 
 precedence = (
     ('left', 'OR_KW', 'SHORT_CIRCUIT_OR_KW'),
@@ -24,60 +29,80 @@ precedence = (
 def p_barnameh(p):
     """ barnameh : PROGRAM_KW SHENASE tarifha """
     # print('Rule #1 \t: barnameh -> PROGRAM_KW SHENASE tarifha')
-    var[p[2]].type = 'Program'
+    # var[p[2]].type = 'Program'
+    del var[p[2]]
 
 
 def p_tarifha_1(p):
     """ tarifha : tarifha tarif """
     # print('Rule #2-1 \t: tarifha -> tarifha tarif')
+    pass
 
 
 def p_tarifha_2(p):
     """ tarifha : tarif """
     # print('Rule #2-2 \t: tarifha -> tarif')
+    pass
 
 
 def p_tarif_1(p):
     """ tarif : tarifeSakhtar """
     # print('Rule #3-1 \t: tarif -> tarifeSakhtar')
+    pass
 
 
 def p_tarif_2(p):
     """ tarif : tarifeMoteghayyer """
     # print('Rule #3-2 \t: tarif -> tarifeMoteghayyer')
+    pass
 
 
 def p_tarif_3(p):
     """ tarif : tarifeTabe """
     # print('Rule #3-3 \t: tarif -> tarifeTabe')
+    pass
 
 
 def p_tarifeSakhtar(p):
     """ tarifeSakhtar : STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE """
     # print('Rule #4 \t: tarifeSakhtar -> STRUCT_KW SHENASE OPEN_BRACE tarifhayeMahalli CLOSE_BRACE ')
+    # TODO handle kon
 
 
 def p_tarifhayeMahalli_1(p):
     """ tarifhayeMahalli : tarifhayeMahalli tarifMoteghayyereMahdud """
     # print('Rule #5-1 \t: tarifhayeMahalli -> tarifhayeMahalli tarifMoteghayyereMahdud')
+    pass
 
 
 def p_tarifhayeMahalli_2(p):
     """ tarifhayeMahalli : epsilon """
     # print('Rule #5-2 \t: tarifhayeMahalli -> epsilon')
+    pass
 
 
 def p_tarifMoteghayyereMahdud(p):
     """ tarifMoteghayyereMahdud : jenseMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL """
     # print('Rule #6 \t: tarifMoteghayyereMahdud -> jensMahdud tarifhayeMoteghayyerha NOGHTE_VIRGUL')
-    for v in p[2]:
-        if v.type is None or v.type == p[1].type:
-            v.type = p[1].type
-            var[v.place].type = v.type
-            var[v.place].value = v.value
+    if isinstance(p[2], list):
+        for v in p[2]:
+            if v.type is None or v.type == p[1].type:
+                v.type = p[1].type
+                var[v.place].type = v.type
+                var[v.place].value = v.value
+                # code += p[1].type + v.code + ';'  # TODO?
+                # print(str(var[v.place]))
+            else:
+                raise Exception('type mismatch error near ' + v.place + ' = ' + str(v.value))
+    else:
+        if p[2].type is None or p[2].type == p[1].type:
+            p[2].type = p[1].type
+            var[p[2].place].type = p[2].type
+            var[p[2].place].value = p[2].value
+            # code += p[1].type + p[2].code + ';'  # TODO?
             # print(str(var[v.place]))
         else:
-            raise Exception('type mismatch error near ' + v.place + ' = ' + str(v.value))
+            raise Exception('type mismatch error near ' + p[2].place + ' = ' + str(p[2].value))
 
 
 def p_jenseMahdud_1(p):
@@ -162,6 +187,9 @@ def p_tarifeShenaseyeMoteghayyer_1(p):
 def p_tarifeShenaseyeMoteghayyer_2(p):
     """ tarifeShenaseyeMoteghayyer : SHENASE OPEN_BRACKET INT CLOSE_BRACKET """
     # print('Rule #12-2 \t: tarifeShenaseyeMoteghayyer -> SHENASE OPEN_BRACKET INT CLOSE_BRACKET ')
+    p[0] = Var(place=p[1])
+    p[0].len = int(p[3])
+    var[p[0].place].len = len(p[0])
 
 
 # def p_tarifeShenaseyeMoteghayyer_3(p):
@@ -172,56 +200,67 @@ def p_tarifeShenaseyeMoteghayyer_2(p):
 def p_tarifeTabe_1(p):
     """ tarifeTabe : jens SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle """
     # print('Rule #13-1 \t: tarifeTabe -> jens SHENASE OPEN_PAREN  vorudi   CLOSE_PAREN  jomle')
+    del var[p[2]]
 
 
 def p_tarifeTabe_2(p):
     """ tarifeTabe : SHENASE OPEN_PAREN vorudi CLOSE_PAREN jomle """
     # print('Rule #13-2 \t: tarifeTabe -> SHENASE   OPEN_PAREN  vorudi   CLOSE_PAREN  jomle')
+    del var[p[2]]
 
 
 def p_vorudi_1(p):
     """ vorudi : vorudiha """
     # print('Rule #14-1 \t: vorudi -> vorudiha')
+    pass
 
 
 def p_vorudi_2(p):
     """ vorudi : epsilon """
     # print('Rule #14-2 \t: vorudi -> epsilon ')
+    pass
 
 
 def p_vorudiha_1(p):
     """ vorudiha : vorudiha NOGHTE_VIRGUL jensVorudiha """
     # print('Rule #15-1 \t: vorudiha -> vorudiha NOGHTE_VIRGUL jensVorudiha')
+    pass
 
 
 def p_vorudiha_2(p):
     """ vorudiha : jensVorudiha """
     # print('Rule #15-2 \t: vorudiha -> jensVorudiha')
+    pass
 
 
 def p_jensVorudiha(p):
     """ jensVorudiha : jens shenaseyeVorudiha """
     # print('Rule #16 \t: jensVorudiha -> jens shenaseyeVorudiha')
+    pass
 
 
 def p_shenaseyeVorudiha_1(p):
     """ shenaseyeVorudiha : shenaseyeVorudiha COMMA shenaseyeVorudi """
     # print('Rule #17-1 \t: shenaseyeVorudiha -> shenaseyeVorudiha COMMA shenaseyeVorudi')
+    pass
 
 
 def p_shenaseyeVorudiha_2(p):
     """ shenaseyeVorudiha : shenaseyeVorudi """
     # print('Rule #17-2 \t: shenaseyeVorudiha -> shenaseyeVorudi')
+    pass
 
 
 def p_shenaseyeVorudi_1(p):
     """ shenaseyeVorudi : SHENASE """
     # print('Rule #18-1 \t: shenaseyeVorudi -> SHENASE')
+    pass
 
 
 def p_shenaseyeVorudi_2(p):
     """ shenaseyeVorudi : SHENASE OPEN_BRACKET CLOSE_BRACKET """
     # print('Rule #18-2 \t: shenaseyeVorudi -> SHENASE OPEN_BRACKET CLOSE_BRACKET')
+    pass
 
 
 def p_jomle_1(p):
@@ -262,11 +301,13 @@ def p_jomleyeMorakkab(p):
 def p_jomleha_1(p):
     """ jomleha : jomleha jomle """
     # print('Rule #21-1 \t: jomleha -> jomleha jomle')
+    pass
 
 
 def p_jomleha_2(p):
     """ jomleha : epsilon """
     # print('Rule #21-1 \t: jomleha -> epsilon ')
+    pass
 
 
 def p_jomleyeEbarat_1(p):
@@ -326,12 +367,12 @@ def p_onsorePishfarz_2(p):
 
 
 def p_jomleyeTekrar(p):
-    """ jomleyeTekrar : WHILE_KW OPEN_PAREN  ebarateSade   CLOSE_PAREN  jomle    """
+    """ jomleyeTekrar : WHILE_KW OPEN_PAREN ebarateSade CLOSE_PAREN jomle """
     # print('Rule #26 \t: jomleyeTekrar -> WHILE_KW OPEN_PAREN  ebarateSade   CLOSE_PAREN  jomle')
 
 
 def p_jomleyeBazgasht_1(p):
-    """jomleyeBazgasht :  RETURN_KW  NOGHTE_VIRGUL """
+    """jomleyeBazgasht :  RETURN_KW NOGHTE_VIRGUL """
     # print('Rule #28-1 \t: jomleyeBazgasht -> RETURN_KW  NOGHTE_VIRGUL')
 
 
@@ -345,23 +386,36 @@ def p_jomleyeShekast(p):
     # print('Rule #29 \t: jomleyeShekast -> BREAK_KW NOGHTE_VIRGUL')
 
 
+# TODO array in left dosnt handled
 def p_ebarat_1(p):
     """ ebarat : taghirpazir EQUALS ebarat """
     # print('Rule #30-1 \t: ebarat -> taghirpazir EQUALS ebarat')
-    if p[1].type == p[3].type:
-        qr.add(p[1], '=', p[3])
-    else:
+    if p[1].type == 'int' and p[3].type == 'float':
         raise Exception('type mismatch error near ' + p[1].place + ' = ' + p[3].place)
+    else:
+        if p[1].len is None:
+            p[0] = Var(place=p[1].place + '=' + p[3].place, type=p[1].type)
+            p[0].set_unique()
+            qr.add(p[1], '=', p[3])
+            p[0].code = p[1].unique + '=' + p[3].unique
+        else:
+            # print(p[0], p[1], p[2], p[3])
+            # pass
+            # p[0] = Var(place=p[1].place + '[]=' + p[3].place, type=p[1].type)
+            # p[0].set_unique()
+            qr.add(p[1], '[]=', p[1].len, p[3])
+            # p[0].code = p[1].unique + '=' + p[3].unique
 
 
 # TODO correct += and others
 def p_ebarat_2(p):
     """ ebarat : taghirpazir PLUS_EQ ebarat """
     # print('Rule #30-2 \t: ebarat -> taghirpazir PLUS_EQ ebarat')
-    if p[1].type == p[3].type:
+    if True:
         p[0] = Var(place=p[1].place + '+' + p[3].place, type=p[1].type)
         p[0].set_unique()
         qr.add(p[0], '+', p[1], p[3])
+        p[0].code = p[1].unique + '+=' + p[3].unique
     else:
         raise Exception('type mismatch error near ' + p[1].place + ' += ' + p[3].place)
 
@@ -369,10 +423,11 @@ def p_ebarat_2(p):
 def p_ebarat_3(p):
     """ ebarat : taghirpazir MINUS_EQ ebarat """
     # print('Rule #30-3 \t: ebarat -> taghirpazir MINUS_EQ ebarat')
-    if p[1].type == p[3].type:
+    if True:
         p[0] = Var(place=p[1].place + '-' + p[3].place, type=p[1].type)
         p[0].set_unique()
         qr.add(p[0], '-', p[1], p[3])
+        p[0].code = p[1].unique + '-=' + p[3].unique
     else:
         raise Exception('type mismatch error near ' + p[1].place + ' -= ' + p[3].place)
 
@@ -380,10 +435,11 @@ def p_ebarat_3(p):
 def p_ebarat_4(p):
     """ ebarat : taghirpazir TIMES_EQ ebarat """
     # print('Rule #30-4 \t: ebarat -> taghirpazir TIMES_EQ ebarat')
-    if p[1].type == p[3].type:
+    if True:
         p[0] = Var(place=p[1].place + '*' + p[3].place, type=p[1].type)
         p[0].set_unique()
         qr.add(p[0], '*', p[1], p[3])
+        p[0].code = p[1].unique + '*=' + p[3].unique
     else:
         raise Exception('type mismatch error near ' + p[1].place + ' *= ' + p[3].place)
 
@@ -391,12 +447,13 @@ def p_ebarat_4(p):
 def p_ebarat_5(p):
     """ ebarat : taghirpazir DIVIDE_EQ ebarat """
     # print('Rule #30-5 \t: ebarat -> taghirpazir DIVIDE_EQ ebarat')
-    if p[1].type == p[3].type:
+    if p[3].value == 0:
         p[0] = Var(place=p[1].place + '/' + p[3].place, type=p[1].type)
         p[0].set_unique()
         qr.add(p[0], '/', p[1], p[3])
+        p[0].code = p[1].unique + '/=' + p[3].unique
     else:
-        raise Exception('type mismatch error near ' + p[1].place + ' /= ' + p[3].place)
+        raise Exception('division by zero ' + p[1].place + ' /= ' + p[3].place)
 
 
 def p_ebarat_6(p):
@@ -404,6 +461,7 @@ def p_ebarat_6(p):
     # print('Rule #30-6 \t: ebarat -> taghirpazir PLUS_PLUS')
     p[0] = Var(place=p[1].place + '++')
     qr.add(p[0], '++')
+    p[0].code = p[1].unique + '++'
 
 
 def p_ebarat_7(p):
@@ -411,6 +469,7 @@ def p_ebarat_7(p):
     # print('Rule #30-7 \t: ebarat -> taghirpazir MINUS_MINUS')
     p[0] = Var(place=p[1].place + '--')
     qr.add(p[0], '--')
+    p[0].code = p[1].unique + '--'
 
 
 def p_ebarat_8(p):
@@ -422,41 +481,112 @@ def p_ebarat_8(p):
 def p_ebarateSade_1(p):
     """ ebarateSade : ebarateSade OR_KW ebarateSade """
     # print('Rule #31-1 \t: ebarateSade -> ebarateSade OR_KW ebarateSade')
-    p[0] = Var(place=p[1].place + '||' + p[3].place, type='bool')
-    p[0].set_unique()
-    qr.add(p[0], '||', p[1], p[3])
+    if p[1].type == 'bool' and p[3].type == 'bool':
+        p[0] = Var(place=p[1].place + '||' + p[3].place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '||', p[1], p[3])
+        p[0].code = p[1].unique + '||' + p[3].unique
+    else:
+        tmp1 = Var(place=p[1].place + '!= 0', type='bool')
+        tmp1.set_unique()
+        tmp1.code = p[1].unique + '!= 0'
+        qr.add(tmp1, '!=', p[1], zero)
+        tmp2 = Var(place=p[3].place + '!= 0', type='bool')
+        tmp2.set_unique()
+        tmp2.code = p[3].unique + '!= 0'
+        qr.add(tmp2, '!=', p[3], zero)
+        p[0] = Var(place=tmp1.place + '||' + tmp2.place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '||', tmp1, tmp2)
+        p[0].code = tmp1.unique + '||' + tmp2.unique
 
 
 def p_ebarateSade_2(p):
     """ ebarateSade : ebarateSade AND_KW ebarateSade """
     # print('Rule #31-2 \t: ebarateSade -> ebarateSade AND_KW ebarateSade')
-    p[0] = Var(place=p[1].place + '&&' + p[3].place, type='bool')
-    p[0].set_unique()
-    qr.add(p[0], '&&', p[1], p[3])
+    if p[1].type == 'bool' and p[3].type == 'bool':
+        p[0] = Var(place=p[1].place + '&&' + p[3].place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&', p[1], p[3])
+        p[0].code = p[1].unique + '&&' + p[3].unique
+    else:
+        tmp1 = Var(place=p[1].place + '!= 0', type='bool')
+        tmp1.set_unique()
+        tmp1.code = p[1].unique + '!= 0'
+        qr.add(tmp1, '!=', p[1], zero)
+        tmp2 = Var(place=p[3].place + '!= 0', type='bool')
+        tmp2.set_unique()
+        tmp2.code = p[3].unique + '!= 0'
+        qr.add(tmp2, '!=', p[3], zero)
+        p[0] = Var(place=tmp1.place + '&&' + tmp2.place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&&', tmp1, tmp2)
+        p[0].code = tmp1.unique + '&&' + tmp2.unique
 
 
 def p_ebarateSade_3(p):
     """ ebarateSade : ebarateSade SHORT_CIRCUIT_OR_KW ebarateSade """
     # print('Rule #31-3 \t: ebarateSade -> ebarateSade SHORT_CIRCUIT_OR_KW ebarateSade')
-    p[0] = Var(place=p[1].place + '|' + p[3].place, type='bool')
-    p[0].set_unique()
-    qr.add(p[0], '|', p[1], p[3])
+    if p[1].type == 'bool' and p[3].type == 'bool':
+        p[0] = Var(place=p[1].place + '|' + p[3].place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&', p[1], p[3])
+        p[0].code = p[1].unique + '|' + p[3].unique
+    else:
+        tmp1 = Var(place=p[1].place + '!= 0', type='bool')
+        tmp1.set_unique()
+        tmp1.code = p[1].unique + '!= 0'
+        qr.add(tmp1, '!=', p[1], zero)
+        tmp2 = Var(place=p[3].place + '!= 0', type='bool')
+        tmp2.set_unique()
+        tmp2.code = p[3].unique + '!= 0'
+        qr.add(tmp2, '!=', p[3], zero)
+        p[0] = Var(place=tmp1.place + '|' + tmp2.place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&', tmp1, tmp2)
+        p[0].code = tmp1.unique + '|' + tmp2.unique
 
 
 def p_ebarateSade_4(p):
     """ ebarateSade : ebarateSade SHORT_CIRCUIT_AND_KW ebarateSade """
     # print('Rule #31-4 \t: ebarateSade -> ebarateSade SHORT_CIRCUIT_AND_KW ebarateSade')
-    p[0] = Var(place=p[1].place + '&' + p[3].place, type='bool')
-    p[0].set_unique()
-    qr.add(p[0], '&', p[1], p[3])
+    if p[1].type == 'bool' and p[3].type == 'bool':
+        p[0] = Var(place=p[1].place + '&' + p[3].place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&', p[1], p[3])
+        p[0].code = p[1].unique + '&' + p[3].unique
+    else:
+        tmp1 = Var(place=p[1].place + '!= 0', type='bool')
+        tmp1.set_unique()
+        tmp1.code = p[1].unique + '!= 0'
+        qr.add(tmp1, '!=', p[1], zero)
+        tmp2 = Var(place=p[3].place + '!= 0', type='bool')
+        tmp2.set_unique()
+        tmp2.code = p[3].unique + '!= 0'
+        qr.add(tmp2, '!=', p[3], zero)
+        p[0] = Var(place=tmp1.place + '&' + tmp2.place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '&', tmp1, tmp2)
+        p[0].code = tmp1.unique + '&' + tmp2.unique
 
 
 def p_ebarateSade_5(p):
     """ ebarateSade : NOT_KW ebarateSade """
     # print('Rule #31-5 \t: ebarateSade -> NOT_KW ebarateSade')
-    p[0] = Var(place='!' + p[2].place, type='bool')
-    p[0].set_unique()
-    qr.add(p[0], '!', p[1])
+    if p[2].type == 'bool':
+        p[0] = Var(place='!' + p[2].place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '!', p[1])
+        p[0].code = '!' + p[2].unique
+    else:
+        tmp = Var(place=p[2].place + '!= 0', type='bool')
+        tmp.set_unique()
+        tmp.code = p[2].unique + '!= 0'
+        qr.add(tmp, '==', p[2], zero)
+        p[0] = Var(place='!' + tmp.place, type='bool')
+        p[0].set_unique()
+        qr.add(p[0], '!', tmp)
+        p[0].code = '!' + tmp.unique
 
 
 def p_ebarateSade_6(p):
@@ -474,13 +604,10 @@ def p_ebarateRabetei_1(p):
 def p_ebarateRabetei_2(p):
     """ ebarateRabetei : ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi """
     # print('Rule #32-2 \t: ebarateRabetei -> ebarateRiaziManteghi amalgareRabetei ebarateRiaziManteghi')
-    # if p[1].type == p[3].type:
-    if True:  # TODO type checking
-        p[0] = Var(place=p[1].place + p[2].op + p[3].place, type=p[1].type)
-        p[0].set_unique()
-        qr.add(p[0], p[2].op, p[1], p[3])
-    else:
-        raise Exception('type mismatch error near ' + p[1].place + p[2].op + p[3].place)
+    p[0] = Var(place=p[1].place + p[2].op + p[3].place, type='bool')
+    p[0].set_unique()
+    qr.add(p[0], p[2].op, p[1], p[3])
+    p[0].code = p[1].unique + p[2].op + p[3].unique
 
 
 def p_amalgareRabetei_1(p):
@@ -522,12 +649,14 @@ def p_ebarateRiaziManteghi_1(p):
 def p_ebarateRiaziManteghi_2(p):
     """ebarateRiaziManteghi : ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi """
     # print('Rule #34-2 \t: ebarateRiaziManteghi -> ebarateRiaziManteghi amalgareRiazi ebarateRiaziManteghi')
-    if p[1].type == p[3].type:
-        p[0] = Var(place=p[1].place + p[2].op + p[3].place, type=p[1].type)
-        p[0].set_unique()
-        qr.add(p[0], p[2].op, p[1], p[3])
+    p[0] = Var(place=p[1].place + p[2].op + p[3].place)
+    if p[3].type == 'float' or p[1].type == 'float':
+        p[0].type = 'float'
     else:
-        raise Exception('type mismatch error near ' + p[1].place + p[2].op + p[3].place)
+        p[0].type = 'int'
+    p[0].set_unique()
+    qr.add(p[0], p[2].op, p[1], p[3])
+    p[0].code = p[1].unique + p[2].op + p[3].unique
 
 
 def p_amalgareRiazi_1(p):
@@ -611,21 +740,33 @@ def p_taghirpazir_1(p):
 def p_taghirpazir_2(p):
     """ taghirpazir : taghirpazir OPEN_BRACKET ebarat CLOSE_BRACKET """
     # print('Rule #39-2 \t: taghirpazir -> taghirpazir OPEN_BRACKET ebarat CLOSE_BRACKET')
+    # TODO test array
+    if p[3].value < len(var[p[1].place]):
+        p[0] = Var(place=p[1].place + '[' + p[3].place + ']')
+        p[0].set_unique()
+        # p[0].len = len(var[p[1].place])
+        p[0].len = p[3].place
+        qr.add(p[0], '=[]', p[1], p[3])
+    else:
+        raise Exception('array out of range ' + p[1].place + '[' + str(p[3].value) + ']')
 
 
 def p_taghirpazir_3(p):
     """taghirpazir : taghirpazir DOT SHENASE """
     # print('Rule #39-3 \t: taghirpazir -> taghirpazir DOT SHENASE')
+    # TODO structure handling
 
 
 def p_taghirnapazir_1(p):
     """ taghirnapazir : OPEN_PAREN ebarat CLOSE_PAREN """
     # print('Rule #40-1 \t: taghirnapazir -> OPEN_PAREN ebarat CLOSE_PAREN')
+    p[0] = p[2]
 
 
 def p_taghirnapazir_2(p):
     """ taghirnapazir : sedaZadan """
     # print('Rule #40-2 \t: taghirnapazir -> sedaZadan')
+    pass
 
 
 def p_taghirnapazir_3(p):
@@ -637,26 +778,31 @@ def p_taghirnapazir_3(p):
 def p_sedaZadan(p):
     """ sedaZadan : SHENASE OPEN_PAREN bordareVorudi CLOSE_PAREN """
     # print('Rule #40 \t: sedaZadan -> SHENASE OPEN_PAREN bordareVorudi CLOSE_PAREN ')
+    pass
 
 
 def p_bordareVorudi_1(p):
     """ bordareVorudi : bordareVorudiha """
     # print('Rule #41-1 \t: bordareVorudi -> bordareVorudiha')
+    pass
 
 
 def p_bordareVorudi_2(p):
     """ bordareVorudi : epsilon """
     # print('Rule #41-2 \t: bordareVorudi -> epsilon ')
+    pass
 
 
 def p_bordareVorudiha_1(p):
     """ bordareVorudiha : bordareVorudiha COMMA ebarat """
     # print('Rule #42-1 \t:s bordareVorudiha -> bordareVorudiha COMMA ebarat')
+    pass
 
 
 def p_bordareVorudiha_2(p):
     """bordareVorudiha : ebarat """
     # print('Rule #42-2 \t: bordareVorudiha -> ebarat')
+    pass
 
 
 def p_meghdareSabet_1(p):
@@ -677,25 +823,27 @@ def p_meghdareSabet_3(p):
     """ meghdareSabet :  HARFE_SABET """
     # print('Rule #43-3 \t: meghdareSabet -> HARFE_SABET ')
     p[0] = Var(place=str(p[1]), type='char', value=p[1])
+    # TODO make value integer
     p[0].unique = p[0].place
 
 
 def p_meghdareSabet_4(p):
     """ meghdareSabet : TRUE_KW """
     # print('Rule #43-4 \t: meghdareSabet -> TRUE_KW ')
-    p[0] = Var(place=str(p[1]), type='bool', value=p[1])
+    p[0] = Var(place=str(p[1]), type='bool', value=1)
     p[0].unique = p[0].place
 
 
 def p_meghdareSabet_5(p):
     """ meghdareSabet : FALSE_KW """
     # print('Rule #43-5 \t: meghdareSabet -> FALSE_KW ')
-    p[0] = Var(place=str(p[1]), type='bool', value=p[1])
+    p[0] = Var(place=str(p[1]), type='bool', value=0)
     p[0].unique = p[0].place
 
 
 def p_epsilon(p):
     """ epsilon : """
+    pass
 
 
 def p_error(p):
@@ -705,7 +853,5 @@ def p_error(p):
     else:
         print('Syntax Error EOF')
 
-
-tokens = lex.tokens
 
 parser = yacc.yacc()

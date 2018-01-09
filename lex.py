@@ -1,9 +1,8 @@
 import ply.lex as lex
-from var import Var
+from env.var import Var
 
 tokens = (
     'SHENASE',
-    # 'ADAD',
     'INT',
     'FLOAT',
     'HARFE_SABET',
@@ -79,10 +78,8 @@ harf = r'\u0622|\u0627|\u0628|\u067E|\u062A|\u062B|\u062C|\u0686|\u062D|\u062E|\
 harf_ragham = r'' + harf + r'|' + ragham
 
 t_SHENASE = r'' + harf + r'[' + harf_ragham + r']*'
-# t_ADAD = r'[' + ragham + r']+'
 
-t_HARFE_SABET = r"'" + harf + r"'"  # wtf?
-# t_FIXED_CHARACTER = r'\\.{1}'
+t_HARFE_SABET = r'\'\\.{1}\''  # TODO Why?
 
 t_JAYEKHALI = r'[" "|\n|\t]+'  # ?
 # t_ignore = r'\t\r\f\v'
@@ -127,6 +124,7 @@ t_QUESTION_MARK = r'\?|\؟'
 t_INT = r'[' + ragham1_9 + r']' + r'[' + ragham + r']*'
 t_FLOAT = r'(([' + ragham1_9 + r']' + r'[' + ragham + r']*)|(0|\u0660|\u06F0))' + r'\.((0|\u0660|\u06F0)|' + r'([' + ragham + r']*' + r'[' + ragham1_9 + r']))'
 
+# TODO correct some!
 keywords = {
     'برنامه': 'PROGRAM_KW',
     'ساختار': 'STRUCT_KW',
@@ -147,11 +145,11 @@ keywords = {
     'بشکن': 'BREAK_KW',
     'یا': 'OR_KW',
     'و': 'AND_KW',
-    'یا وگرنه': 'SHORT_CIRCUIT_OR_KW',
-    'و همچنین': 'SHORT_CIRCUIT_AND_KW',
+    'یاوگرنه': 'SHORT_CIRCUIT_OR_KW',
+    'وهمچنین': 'SHORT_CIRCUIT_AND_KW',
     'خلاف': 'NOT_KW',
     'درست': 'TRUE_KW',
-    'غلط': 'FALSE_KW'
+    'غلط': 'FALSE_KW',
     # 'اصلی': 'MAIN_KW'
 }
 
@@ -199,7 +197,7 @@ def t_newline(t):
 
 
 def t_error(t):
-    print('Illegal character "%s"' % t.value[0])
+    # print('Illegal character "%s"' % t.value[0])
     t.lexer.skip(1)
 
 

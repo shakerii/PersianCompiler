@@ -15,10 +15,14 @@ class QuadRuple:
         for t in self.table:
             if t['arg2'] is None:
                 if t['op'] == '=':
-                    s += str(t['res'].unique) + ' = ' + str(t['arg1'].unique) + '\n'
+                    s += t['res'].unique + ' = ' + t['arg1'].unique + '\n'
                 else:
                     s += t['res'].unique + ' = ' + t['op'] + t['arg1'].unique + '\n'
             else:
-                s += str(t['res'].unique) + ' = ' + str(t['arg1'].unique) + ' ' + t['op'] + ' ' + str(
-                    t['arg2'].unique) + '\n'
+                if t['op'] == '=[]':
+                    s += t['res'].unique + ' = ' + t['arg1'].unique + '[' + t['arg2'].unique + ']' + '\n'
+                elif t['op'] == '[]=':
+                    s += t['res'].unique + '[' + t['arg1'] + '] = ' + t['arg2'].unique + '\n'
+                else:
+                    s += t['res'].unique + ' = ' + t['arg1'].unique + ' ' + t['op'] + ' ' + t['arg2'].unique + '\n'
         return s
