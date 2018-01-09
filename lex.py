@@ -1,4 +1,5 @@
 import ply.lex as lex
+from var import Var
 
 tokens = (
     'SHENASE',
@@ -169,7 +170,9 @@ def t_SHENASE(t):
     t.type = keywords.get(t.value, 'SHENASE')
     if t.type == 'SHENASE':
         if t.value not in variables:
-            variables[t.value] = {'type': None}
+            variables[t.value] = Var(place=t.value)
+            variables[t.value].set_unique()
+            # print(str(variables[t.value]))
     return t
 
 
