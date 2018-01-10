@@ -144,7 +144,7 @@ def p_jens_4(p):
 
 def p_tarifeMoteghayyer(p):
     """ tarifeMoteghayyer : jens tarifhayeMoteghayyerha NOGHTE_VIRGUL """
-    print('Rule #9 \t: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
+    # print('Rule #9 \t: tarifeMoteghayyer -> jens tarifhayeMoteghayyerha NOGHTE_VIRGUL')
     for v in p[2]:
         if v.type is None or v.type == p[1].type:
             v.type = p[1].type
@@ -321,13 +321,19 @@ def p_jomleyeEbarat_2(p):
 
 
 def p_jomleyeEntekhab_1(p):
-    """ jomleyeEntekhab : IF_KW ebarateSade THEN_KW jomle """
+    """ jomleyeEntekhab : IF_KW ebarateSade THEN_KW epsilon jomle """
     # print('Rule #23-1 \t: jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle')
+    p[0] = Var();
+    Var.backPatching(p[2].truelist ,qr ,str(p[4].quad));
+    Var.backPatching(p[2].falesList ,qr ,str(len(qr)));
 
 
 def p_jomleyeEntekhab_2(p):
-    """ jomleyeEntekhab : IF_KW ebarateSade THEN_KW jomle ELSE_KW jomle """
+    """ jomleyeEntekhab : IF_KW ebarateSade THEN_KW epsilon jomle ELSE_KW epsilon jomle """
     # print('Rule #23-2 \t: jomleyeEntekhab -> IF_KW ebarateSade THEN_KW jomle ELSE_KW jomle')
+    p[0] = Var();
+    Var.backPatching(p[2].truelist ,qr ,str(p[4].quad));
+    Var.backPatching(p[2].falseList ,qr ,str(p[7].quad));
 
 
 def p_jomleyeEntekhab_3(p):
@@ -367,8 +373,13 @@ def p_onsorePishfarz_2(p):
 
 
 def p_jomleyeTekrar(p):
-    """ jomleyeTekrar : WHILE_KW OPEN_PAREN ebarateSade CLOSE_PAREN jomle """
+    """ jomleyeTekrar : WHILE_KW OPEN_PAREN epsilon ebarateSade CLOSE_PAREN epsilon jomle """
     # print('Rule #26 \t: jomleyeTekrar -> WHILE_KW OPEN_PAREN  ebarateSade   CLOSE_PAREN  jomle')
+    p[0] = Var();
+    Var.backPatching(p[7].truelist ,qr ,p[3].quad);
+    Var.backPatching(p[4].truelist ,qr ,p[6].quad);
+    p[7].nextlist = p[4].falselist;
+    qr.add('goto ' + str(p[3].quad) ,'' ,'' ,'');
 
 
 def p_jomleyeBazgasht_1(p):
@@ -843,7 +854,7 @@ def p_meghdareSabet_5(p):
 
 def p_epsilon(p):
     """ epsilon : """
-    pass
+    p[0] = Var(quad = len(qr))
 
 
 def p_error(p):
